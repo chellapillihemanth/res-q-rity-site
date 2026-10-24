@@ -1,90 +1,79 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { Star } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
-import { FadeIn, GlowOrbs, SectionHeading, SpotlightCard } from '../components/ui'
-import { PartnerStrip } from '../components/sections'
+import { FadeUp, Label } from '../components/ui'
 import { partnerCategories } from '../data/content'
 
 export default function Solutions() {
   const [active, setActive] = useState(partnerCategories[0].id)
-  const cat = partnerCategories.find((c) => c.id === active)
+
+  // Highlight the category currently in view in the sticky index.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+    partnerCategories.forEach((c) => {
+      const el = document.getElementById(c.id)
+      if (el) io.observe(el)
+    })
+    return () => io.disconnect()
+  }, [])
 
   return (
     <>
       <PageHero
-        crumb="Solutions"
-        eyebrow="Value-added channel partnerships"
-        title="Next-gen products from one trusted partner"
-        highlight={['Next-gen', 'trusted']}
-        text="We are not just service providers but strategic vendor partners. We match the right technology to your needs, so you get comprehensive, top-tier protection."
+        label="Solutions"
+        title="The right product,"
+        muted="sourced and deployed by people who use it."
+        text="We are a value-added channel partner to leading security vendors. Instead of pushing one platform, we recommend what fits your environment, then help you roll it out."
       />
 
-      <section className="relative px-4 py-16 sm:px-6">
-        <GlowOrbs />
-        <SectionHeading eyebrow="Explore by category" title="Pick a security domain" highlight={['domain']} />
+      <section className="py-24 md:py-32">
+        <div className="wrap grid gap-12 md:grid-cols-12">
+          <aside className="hidden md:col-span-3 md:block">
+            <nav className="sticky top-28">
+              <Label className="!text-dim">Categories</Label>
+              <ul className="mt-5 space-y-1 text-sm">
+                {partnerCategories.map((c, i) => (
+                  <li key={c.id}>
+                    <a href={`#${c.id}`} className={`flex gap-3 py-1.5 transition-colors duration-300 ${active === c.id ? 'text-fg' : 'text-dim hover:text-muted'}`}>
+                      <span className={`font-mono text-xs ${active === c.id ? 'text-accent' : ''}`}>{String(i + 1).padStart(2, '0')}</span>
+                      {c.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
 
-        <div className="relative mx-auto mt-12 max-w-7xl">
-          <div className="flex flex-wrap justify-center gap-2" role="tablist">
-            {partnerCategories.map((c) => (
-              <button
-                key={c.id}
-                role="tab"
-                aria-selected={active === c.id}
-                onClick={() => setActive(c.id)}
-                className="relative rounded-full px-4 py-2 text-sm font-medium transition-colors"
-              >
-                {active === c.id && (
-                  <motion.span layoutId="cat-pill" className="absolute inset-0 rounded-full bg-gradient-to-r from-cyber-500 to-azure-500 shadow-[0_0_25px_-5px_rgba(34,195,230,0.8)]" transition={{ type: 'spring', stiffness: 350, damping: 30 }} />
-                )}
-                <span className={`relative ${active === c.id ? 'text-white' : 'text-slate-400 hover:text-cyber-300'}`}>{c.title}</span>
-              </button>
+          <div className="md:col-span-9">
+            {partnerCategories.map((c, i) => (
+              <section key={c.id} id={c.id} className="scroll-mt-28 border-t border-line pt-8 pb-16">
+                <FadeUp>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h2 className="font-wide text-2xl font-semibold text-fg md:text-3xl">{c.title}</h2>
+                    <span className="font-mono text-xs text-dim">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.14em] text-dim">{c.short}</p>
+                </FadeUp>
+                <div className={`mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line ${c.partners.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+                  {c.partners.map((p, j) => (
+                    <FadeUp key={p.name} delay={j * 0.06} className="bg-ink p-6 transition-colors duration-300 hover:bg-ink-2">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <h3 className="text-lg font-semibold text-fg">{p.name}</h3>
+                        {p.rating && <span className="shrink-0 font-mono text-xs text-dim">Gartner Peer Insights {p.rating}/5</span>}
+                      </div>
+                      <ul className="mt-4 space-y-1.5 text-sm">
+                        {p.points.map((pt) => <li key={pt} className="flex gap-2"><span className="text-dim">–</span>{pt}</li>)}
+                      </ul>
+                    </FadeUp>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-12"
-            >
-              <p className="text-center font-mono text-xs uppercase tracking-[0.25em] text-cyber-400">{cat.short}</p>
-              <div className={`mx-auto mt-8 grid gap-6 ${cat.partners.length === 1 ? 'max-w-xl' : cat.partners.length === 2 ? 'max-w-4xl md:grid-cols-2' : cat.partners.length === 3 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-4'}`}>
-                {cat.partners.map((p, i) => (
-                  <motion.div key={p.name} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
-                    <SpotlightCard className="h-full p-7">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="font-display text-2xl font-bold text-white">{p.name}</h3>
-                        {p.rating && (
-                          <span className="flex shrink-0 items-center gap-1 rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-xs text-amber-300" title="Gartner Peer Insights rating">
-                            <Star className="h-3 w-3 fill-amber-300" /> {p.rating}/5
-                          </span>
-                        )}
-                      </div>
-                      <div className="my-5 h-px bg-gradient-to-r from-cyber-400/40 to-transparent" />
-                      <ul className="space-y-2.5">
-                        {p.points.map((pt) => (
-                          <li key={pt} className="flex gap-2.5 text-sm text-slate-300"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-cyber-400" />{pt}</li>
-                        ))}
-                      </ul>
-                    </SpotlightCard>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
-      </section>
-
-      <section className="py-24">
-        <FadeIn>
-          <p className="mb-10 px-4 text-center font-mono text-xs uppercase tracking-[0.25em] text-slate-500">Our technology ecosystem</p>
-        </FadeIn>
-        <PartnerStrip />
       </section>
 
       <CTA />

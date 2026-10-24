@@ -1,23 +1,15 @@
-import { motion } from 'motion/react'
-import ParticleField from '../components/ParticleField'
-import { Button } from '../components/ui'
+import { Button, Label } from '../components/ui'
 
 export default function NotFound() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 text-center">
-      <div className="bg-grid mask-radial absolute inset-0" />
-      <ParticleField density={0.00005} />
-      <div className="relative">
-        <motion.p
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="font-display text-[8rem] font-bold leading-none text-gradient sm:text-[12rem]"
-        >
-          404
-        </motion.p>
-        <p className="font-mono text-sm uppercase tracking-[0.3em] text-cyber-400">Access denied: page not found</p>
-        <p className="mx-auto mt-4 max-w-md text-slate-400">The page you are looking for has moved or never existed.</p>
-        <Button to="/" className="mt-10">Back to safety</Button>
+    <section className="relative flex min-h-[80vh] items-center pt-24">
+      <div className="crosshairs absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+      <div className="wrap relative">
+        <Label><span className="text-accent">404</span>&nbsp;&nbsp;Page not found</Label>
+        <h1 className="mt-6 max-w-3xl font-wide text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-fg md:text-7xl">
+          This page has moved <span className="text-dim">or never existed.</span>
+        </h1>
+        <Button to="/" className="mt-10">Back to home</Button>
       </div>
     </section>
   )

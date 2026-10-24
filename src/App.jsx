@@ -9,16 +9,27 @@ import Services from './pages/Services'
 import Solutions from './pages/Solutions'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
+import { scrollToTarget, startSmoothScroll } from './lib/scroll'
+
+const titles = {
+  '/': 'RES-Q-RITY | Cybersecurity Consulting, Audits & Managed Security',
+  '/about': 'About | RES-Q-RITY',
+  '/services': 'Services: vCISO, ISO 27001, SOC 2 & PCI DSS | RES-Q-RITY',
+  '/solutions': 'Security Solutions & Technology Partners | RES-Q-RITY',
+  '/contact': 'Contact & Free Assessment | RES-Q-RITY',
+}
 
 function ScrollManager() {
   const { pathname, hash } = useLocation()
+  useEffect(() => startSmoothScroll(), [])
   useEffect(() => {
+    document.title = titles[pathname] ?? 'Page not found | RES-Q-RITY'
     if (hash) {
       // Wait for the page transition to mount the target section.
-      const t = setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }), 650)
+      const t = setTimeout(() => scrollToTarget(hash), 650)
       return () => clearTimeout(t)
     }
-    window.scrollTo(0, 0)
+    scrollToTarget(0, { immediate: true })
   }, [pathname, hash])
   return null
 }
@@ -45,7 +56,7 @@ export default function App() {
     <>
       <motion.div
         style={{ scaleX: progress }}
-        className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-gradient-to-r from-cyber-400 to-azure-500"
+        className="fixed inset-x-0 top-0 z-[60] h-px origin-left bg-accent"
       />
       <ScrollManager />
       <Header />
