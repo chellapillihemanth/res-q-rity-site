@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-ink-950: #020711;
+  --color-ink-900: #030a17;
+  --color-ink-800: #071327;
+  --color-ink-700: #0b1d3a;
+  --color-cyber-300: #8ae9fb;
+  --color-cyber-400: #5fd8f0;
+  --color-cyber-500: #22c3e6;
+  --color-azure-500: #2f6bff;
+  --color-azure-600: #1f4fe0;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-scan: scan 6s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 30s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body {
+  @apply bg-ink-900 text-slate-300 font-sans antialiased;
+}
+::selection { background: rgb(95 216 240 / 0.3); color: #fff; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #020711; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#22c3e6, #2f6bff); border-radius: 10px; }
+
+@utility text-gradient {
+  background: linear-gradient(100deg, #8ae9fb 0%, #22c3e6 40%, #2f6bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: linear-gradient(145deg, rgb(11 29 58 / 0.55), rgb(3 10 23 / 0.35));
+  border: 1px solid rgb(95 216 240 / 0.12);
+  backdrop-filter: blur(14px);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(rgb(95 216 240 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(95 216 240 / 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
