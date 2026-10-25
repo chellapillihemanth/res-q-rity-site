@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react'
 import { Check, Minus, ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 import {
   clientLogos, approach, engagementSteps, testimonials, recognition, roadmap,
-  frameworks, industries, assessmentDomains, faqs,
+  frameworks, industries, assessmentDomains, faqs, leadership, founderMessage,
 } from '../data/content'
 import { Button, FadeUp, Label, Rule, SectionHeader, ease } from './ui'
 
@@ -280,6 +280,79 @@ export function Roadmap({ index }) {
             </FadeUp>
           ))}
         </ol>
+      </div>
+    </section>
+  )
+}
+
+function Portrait({ person, className = '' }) {
+  if (person.photo) {
+    return (
+      <div className={`group relative overflow-hidden rounded-lg border border-line bg-ink-2 ${className}`}>
+        <img
+          src={person.photo}
+          alt={`${person.name}, ${person.role}`}
+          loading="lazy"
+          className="h-full w-full object-cover object-top grayscale transition-all duration-700 group-hover:scale-[1.03] group-hover:grayscale-0"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/80 to-transparent" />
+      </div>
+    )
+  }
+  // No photo yet: a monogram in the site's crosshair style.
+  return (
+    <div className={`crosshairs relative grid place-items-center overflow-hidden rounded-lg border border-line bg-ink-2 ${className}`} aria-hidden>
+      <span className="font-wide text-5xl font-semibold tracking-[-0.03em] text-fg/80">{person.initials}</span>
+    </div>
+  )
+}
+
+export function Leadership({ index = '01' }) {
+  const [founder, ...team] = leadership
+  return (
+    <section id="leadership" className="scroll-mt-20 py-24 md:py-32">
+      <div className="wrap">
+        <SectionHeader index={index} label="Leadership" title="The people behind" muted="RES-Q-RITY." />
+
+        <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-12">
+          <FadeUp className="md:col-span-5">
+            <Portrait person={founder} className="aspect-[4/5]" />
+          </FadeUp>
+          <div className="flex flex-col md:col-span-7">
+            <FadeUp delay={0.1}>
+              <Label className="!text-dim">Founder’s message</Label>
+              <blockquote className="mt-5 font-wide text-xl font-normal leading-[1.4] tracking-[-0.01em] text-fg md:text-[1.75rem]">
+                <span className="text-accent">“</span>{founderMessage}<span className="text-accent">”</span>
+              </blockquote>
+            </FadeUp>
+            <FadeUp delay={0.2} className="mt-10 border-t border-line pt-6 md:mt-auto">
+              <p className="font-wide text-xl font-semibold text-fg">{founder.name}</p>
+              <p className="mt-1 text-sm text-accent">{founder.role}</p>
+              <p className="mt-4 max-w-2xl leading-relaxed">{founder.bio}</p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {founder.highlights.map((h) => (
+                  <li key={h} className="rounded border border-line-strong px-2.5 py-1 font-mono text-xs text-muted">{h}</li>
+                ))}
+              </ul>
+            </FadeUp>
+          </div>
+        </div>
+
+        {team.map((p) => (
+          <FadeUp key={p.name} className="mt-16 grid gap-8 border-t border-line pt-10 md:grid-cols-12 md:gap-12">
+            <Portrait person={p} className="aspect-square w-28 md:col-span-2 md:w-full" />
+            <div className="md:col-span-10 md:pl-0">
+              <p className="font-wide text-xl font-semibold text-fg">{p.name}</p>
+              <p className="mt-1 text-sm text-accent">{p.role}</p>
+              <p className="mt-4 max-w-3xl leading-relaxed">{p.bio}</p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {p.highlights.map((h) => (
+                  <li key={h} className="rounded border border-line-strong px-2.5 py-1 font-mono text-xs text-muted">{h}</li>
+                ))}
+              </ul>
+            </div>
+          </FadeUp>
+        ))}
       </div>
     </section>
   )

@@ -172,7 +172,10 @@ function Intro() {
             </FadeUp>
           ))}
         </div>
-        <FadeUp className="mt-10 md:ml-[25%]"><ArrowLink to="/about">More about RES-Q-RITY</ArrowLink></FadeUp>
+        <FadeUp className="mt-10 flex flex-wrap gap-x-10 gap-y-4 md:ml-[25%]">
+          <ArrowLink to="/about">More about RES-Q-RITY</ArrowLink>
+          <ArrowLink to="/about#leadership">Meet our leadership</ArrowLink>
+        </FadeUp>
       </div>
     </section>
   )

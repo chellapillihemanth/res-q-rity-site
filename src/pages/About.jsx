@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
 import { FadeUp, Label, SectionHeader } from '../components/ui'
-import { LogoWall, Recognition, Testimonials, VcisoTable } from '../components/sections'
+import { Leadership, LogoWall, Recognition, Testimonials, VcisoTable } from '../components/sections'
 
 const differentiators = [
   { title: 'Certified practitioners', text: 'Years of hands-on experience and industry certifications across information security, audit and governance.' },
@@ -58,9 +58,11 @@ export default function About() {
         </div>
       </section>
 
+      <Leadership index="01" />
+
       <section className="py-24 md:py-32">
         <div className="wrap">
-          <SectionHeader index="01" label="Why RES-Q-RITY" title="What makes us" muted="different." />
+          <SectionHeader index="02" label="Why RES-Q-RITY" title="What makes us" muted="different." />
           <div className="mt-14 grid gap-x-10 md:ml-[25%] md:grid-cols-2">
             {differentiators.map((d, i) => (
               <FadeUp key={d.title} delay={(i % 2) * 0.1} className="border-t border-line py-8">
@@ -75,7 +77,7 @@ export default function About() {
 
       <section className="py-24 md:py-32">
         <div className="wrap">
-          <SectionHeader index="02" label="Journey" title="Small team," muted="steady progress." />
+          <SectionHeader index="03" label="Journey" title="Small team," muted="steady progress." />
           <ol className="mt-14 md:ml-[25%]">
             {timeline.map(([year, text], i) => (
               <FadeUp as="li" key={year} delay={i * 0.08} className="grid grid-cols-[6rem_1fr] gap-6 border-t border-line py-6 last:border-b md:grid-cols-[10rem_1fr]">
@@ -87,10 +89,10 @@ export default function About() {
         </div>
       </section>
 
-      <Recognition index="03" />
-      <Testimonials index="04" />
+      <Recognition index="04" />
+      <Testimonials index="05" />
       <LogoWall title="Our clients" />
-      <VcisoTable index="05" />
+      <VcisoTable index="06" />
       <CTA />
     </>
   )

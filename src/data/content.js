@@ -346,3 +346,24 @@ export const faqs = [
     a: 'Our office is at T-Hub, Knowledge City, Hyderabad. We work with clients across India and internationally, including Synergy Software Solutions in Malaysia.',
   },
 ]
+
+export const founderMessage = 'Our mantra is “Keep Cyber Simple.” Cybersecurity shouldn’t be complex, and we’re here to simplify it for the heart of our economy: small and medium-sized businesses. We understand the pitfalls of one-size-fits-all solutions and the power of strategic, tailored guidance. Let’s simplify cybersecurity together, and make it a seamless part of your business success.'
+
+export const leadership = [
+  {
+    name: 'Tejasree A. Pagidipati',
+    role: 'Founder & Chief Executive Officer',
+    photo: '/people/tejasree-pagidipati.jpg',
+    initials: 'TP',
+    bio: 'Tejasree leads RES-Q-RITY with a career spanning cybersecurity strategy, training and security programs. She holds a Master’s in Information Security and has served as a Chief Information Security Officer, Cybersecurity Mentor and Program Lead, Cybersecurity Lead at EnerMech Ltd, and IT Security Lead at several organisations.',
+    highlights: ['Former CISO', 'Master’s in Information Security', 'Cybersecurity Lead, EnerMech Ltd'],
+  },
+  {
+    name: 'Alok Bhashyakarla',
+    role: 'Chief Operating Officer',
+    photo: null,
+    initials: 'AB',
+    bio: 'Alok brings over a decade of industry experience, with a foundation as an Automation Engineer and extensive experience in management roles. He blends technical insight with operational management to keep RES-Q-RITY’s delivery efficient, innovative and aligned with its strategy.',
+    highlights: ['10+ years in industry', 'Automation engineering background', 'Operations & delivery'],
+  },
+]
