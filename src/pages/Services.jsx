@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Plus } from 'lucide-react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
-import { FadeUp, Label, Rule, SectionHeader, ease } from '../components/ui'
+import { FadeUp, Label, Photo, Rule, SectionHeader, ease } from '../components/ui'
 import { Roadmap, VcisoTable } from '../components/sections'
 import { audits, isoPhases, programServices, serviceTracks } from '../data/content'
 
@@ -49,7 +49,13 @@ function Program() {
           muted="led by a virtual CISO."
           text={serviceTracks[0].blurb}
         />
-        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <Photo
+          src="/images/roadmap-discussion.jpg"
+          alt="A consultant explaining a security roadmap in a meeting with a laptop"
+          caption="Roadmap workshop · Build your own program"
+          className="mt-14 aspect-[4/3] sm:aspect-[21/9]"
+        />
+        <div className="mt-6 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {programServices.map((s, i) => (
             <FadeUp key={s.title} delay={(i % 3) * 0.06} className="group bg-ink p-7 transition-colors duration-300 hover:bg-ink-2">
               <s.icon className="h-5 w-5 text-accent" strokeWidth={1.5} />
@@ -153,7 +159,13 @@ function OnDemand() {
           title="Senior expertise exactly when you need it,"
           muted="without a full-time hire."
         />
-        <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:ml-[25%] md:grid-cols-3">
+        <Photo
+          src="/images/late-night-team.jpg"
+          alt="Two colleagues working late at a desk in a dim office"
+          caption="On-demand experts · Incident response & testing"
+          className="mt-14 aspect-[4/3] sm:aspect-[21/9] md:ml-[25%]"
+        />
+        <div className="mt-6 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:ml-[25%] md:grid-cols-3">
           {[
             ['Virtual CISO', 'Executive security leadership for your board, auditors and customers.'],
             ['Incident response', 'Experienced responders to contain, investigate and recover.'],

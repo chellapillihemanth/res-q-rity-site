@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
+import { ImageBand } from '../components/sections'
 import { FadeUp, Label } from '../components/ui'
 import { partnerCategories } from '../data/content'
 
@@ -27,6 +28,16 @@ export default function Solutions() {
         title="The right product,"
         muted="sourced and deployed by people who use it."
         text="We are a value-added channel partner to leading security vendors. Instead of pushing one platform, we recommend what fits your environment, then help you roll it out."
+      />
+
+      <ImageBand
+        src="/images/analytics-dashboard.jpg"
+        alt="Security and performance analytics dashboard on a laptop"
+        label="Value-added channel partner"
+        title="Best-in-class tools,"
+        muted="matched to your environment."
+        text="EDR, SIEM, DLP, email security, OT visibility and GRC platforms from leading vendors, sourced and deployed with you."
+        link={null}
       />
 
       <section className="py-24 md:py-32">

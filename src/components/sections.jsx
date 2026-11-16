@@ -6,7 +6,7 @@ import {
   clientLogos, approach, engagementSteps, testimonials, recognition, roadmap,
   frameworks, industries, assessmentDomains, faqs, leadership, founderMessage,
 } from '../data/content'
-import { Button, FadeUp, Label, Rule, SectionHeader, ease } from './ui'
+import { ArrowLink, Button, FadeUp, Label, Reveal, Rule, SectionHeader, ease } from './ui'
 
 export function LogoWall({ title = 'Trusted by teams in fintech, healthcare, manufacturing and SaaS' }) {
   // Two copies back to back so the -50% marquee loop is seamless.
@@ -353,6 +353,46 @@ export function Leadership({ index = '01' }) {
             </div>
           </FadeUp>
         ))}
+      </div>
+    </section>
+  )
+}
+
+/* Full-bleed photograph with a statement over it; the image drifts slower than the page. */
+export function ImageBand({
+  src = '/images/circuit-board.jpg',
+  alt = 'Illuminated circuit board in teal light',
+  label = 'SOC-as-a-Service',
+  title = 'Security operations,',
+  muted = 'without the infrastructure overhead.',
+  text = 'Monitoring, detection and response through our SIEM and EDR partners, run by people who know your environment.',
+  link = { to: '/solutions', label: 'Explore solutions' },
+}) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], ['-12%', '12%'])
+  return (
+    <section ref={ref} className="relative flex min-h-[70vh] items-end overflow-hidden border-y border-line md:min-h-[80vh]">
+      <motion.img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        style={{ y, scale: 1.25 }}
+        className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.6)_brightness(0.75)]"
+      />
+      <div aria-hidden className="absolute inset-0 bg-[#0a1a33]/40 mix-blend-multiply" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
+      <div className="wrap relative pb-14 md:pb-20">
+        <FadeUp><Label><span className="text-accent">●</span>&nbsp;&nbsp;{label}</Label></FadeUp>
+        <Reveal
+          text={title}
+          muted={muted}
+          className="mt-5 max-w-4xl font-wide text-3xl font-semibold leading-[1.05] tracking-[-0.025em] text-fg sm:text-5xl lg:text-6xl"
+        />
+        <FadeUp delay={0.2} className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-xl leading-relaxed text-fg/80 md:text-lg">{text}</p>
+          {link && <ArrowLink to={link.to}>{link.label}</ArrowLink>}
+        </FadeUp>
       </div>
     </section>
   )

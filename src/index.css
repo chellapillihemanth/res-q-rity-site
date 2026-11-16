@@ -18,15 +18,10 @@
   --color-accent-soft: rgb(95 216 240 / 0.1);
 
   --animate-marquee: marquee 50s linear infinite;
-  --animate-blink: blink 3.2s ease-in-out infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 0.15; }
-    50% { opacity: 1; }
   }
 }
 
@@ -62,12 +57,6 @@ body {
   background-position: center;
 }
 
-/* Same field in the accent colour; revealed under the cursor in the hero. */
-@utility crosshairs-lit {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 26v12M26 32h12' stroke='%235fd8f0' stroke-width='1.2'/%3E%3C/svg%3E");
-  background-size: 64px 64px;
-  background-position: center;
-}
 
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
 export const ease = [0.22, 1, 0.36, 1]
@@ -123,4 +124,34 @@ export function ArrowLink({ to, href, children, className = '' }) {
     </>
   )
   return to ? <Link to={to} className={cls}>{inner}</Link> : <a href={href} className={cls}>{inner}</a>
+}
+
+/* Photograph that wipes in on scroll, drifts slightly (parallax) and is graded navy to sit in the dark theme. */
+export function Photo({ src, alt, caption, className = '', imgClassName = '', parallax = true }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], parallax ? ['-7%', '7%'] : ['0%', '0%'])
+  return (
+    <motion.figure
+      ref={ref}
+      initial={{ clipPath: 'inset(12% 0% 12% 0%)', opacity: 0.4 }}
+      whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 1.2, ease }}
+      className={`relative overflow-hidden rounded-lg border border-line bg-ink-2 ${className}`}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        style={{ y, scale: 1.16 }}
+        className={`absolute inset-0 h-full w-full object-cover [filter:saturate(0.65)_contrast(1.05)_brightness(0.9)] ${imgClassName}`}
+      />
+      <div aria-hidden className="absolute inset-0 bg-[#0a1a33]/35 mix-blend-multiply" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+      {caption && (
+        <figcaption className="absolute bottom-0 left-0 p-5 font-mono text-[11px] uppercase tracking-[0.14em] text-fg/80">{caption}</figcaption>
+      )}
+    </motion.figure>
+  )
 }

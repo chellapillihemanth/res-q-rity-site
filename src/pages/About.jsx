@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
-import { FadeUp, Label, SectionHeader } from '../components/ui'
+import { FadeUp, Label, Photo, SectionHeader } from '../components/ui'
 import { Leadership, LogoWall, Recognition, Testimonials, VcisoTable } from '../components/sections'
 
 const differentiators = [
@@ -50,6 +50,15 @@ export default function About() {
         muted="of security."
         text="RES-Q-RITY is a team of certified information security professionals. Since 2022 we have helped fintechs, healthcare providers, manufacturers and SaaS companies build security that is simple, sustainable and ready to scale."
       />
+
+      <div className="wrap pt-16 md:pt-20">
+        <Photo
+          src="/images/hyderabad-hitec-city.jpg"
+          alt="Office towers in Hyderabad's Knowledge City, near T-Hub"
+          caption="Knowledge City, Hyderabad · Home of T-Hub"
+          className="aspect-[4/3] sm:aspect-[21/9]"
+        />
+      </div>
 
       <section className="py-24 md:py-32">
         <div className="wrap space-y-20">

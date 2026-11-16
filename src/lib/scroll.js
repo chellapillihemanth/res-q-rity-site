@@ -5,7 +5,16 @@ let lenis = null
 /* Smooth scrolling for the whole page; skipped for visitors who prefer reduced motion. */
 export function startSmoothScroll() {
   if (lenis || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {}
-  lenis = new Lenis({ lerp: 0.1, anchors: { offset: -80 } })
+  // Time-based expo ease-out: responds immediately to the wheel and settles without floating.
+  // Touch devices keep native scrolling, which feels most natural on phones.
+  lenis = new Lenis({
+    duration: 1.05,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    syncTouch: false,
+    anchors: { offset: -80 },
+  })
   let raf
   const loop = (t) => {
     lenis.raf(t)

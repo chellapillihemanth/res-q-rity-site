@@ -1,99 +1,141 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, animate, useInView, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react'
+import { motion, animate, useInView, useScroll, useTransform } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 import CTA from '../components/CTA'
-import { ArrowLink, Button, FadeUp, Label, Rule, SectionHeader, ease } from '../components/ui'
-import { Approach, Assessment, Faq, FrameworksBand, Industries, LogoWall, Process, Testimonials } from '../components/sections'
+import HeroField from '../components/HeroField'
+import { ArrowLink, Button, FadeUp, Label, Photo, Rule, SectionHeader, ease } from '../components/ui'
+import { Approach, Assessment, Faq, FrameworksBand, ImageBand, Industries, LogoWall, Process, Testimonials } from '../components/sections'
 import { caseWork, partnerCategories } from '../data/content'
 
-const credentials = [
-  ['Founded', '2022, Hyderabad'],
-  ['Member', 'Data Security Council of India'],
-  ['Incubated', 'IIM Bangalore · NSRCEL'],
-  ['Based at', 'T-Hub, Knowledge City'],
+const credentials = ['DSCI member', 'Incubated at IIM Bangalore · NSRCEL', 'T-Hub, Hyderabad']
+
+// Entry points at the foot of the hero: each routes a visitor straight to what they came for.
+const entryPoints = [
+  { title: 'Get audit-ready', tags: 'ISO 27001 · SOC 2 · PCI DSS', to: '/services#audit', photo: '/images/roadmap-discussion.jpg' },
+  { title: 'Hire a virtual CISO', tags: 'Strategy · Risk · Policy', to: '/services#program', photo: '/images/advisory-session.jpg' },
+  { title: 'Monitor & respond', tags: 'SOC · SIEM · EDR', to: '/solutions', photo: '/images/circuit-board.jpg' },
+  { title: 'Not sure where to start?', tags: 'Free technical assessment', to: '/contact', photo: '/images/analytics-dashboard.jpg' },
 ]
 
-// Positions of the "sensor" crosshairs that blink in the hero field.
-const sensors = [
-  ['12%', '22%', '0s'], ['84%', '18%', '1.1s'], ['22%', '72%', '2s'],
-  ['76%', '64%', '0.6s'], ['50%', '12%', '1.6s'], ['92%', '82%', '2.4s'],
-]
+function EntryTile({ item, i }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 1.15 + i * 0.08, ease }}
+      className={`border-line ${i % 2 ? 'border-l' : ''} ${i > 1 ? 'border-t lg:border-t-0' : ''} ${i === 2 ? 'lg:border-l' : ''}`}
+    >
+      <Link to={item.to} className="group relative flex h-36 flex-col justify-between overflow-hidden p-5 md:h-44 md:p-6">
+        {/* Photo fades in behind the tile on hover (faintly visible on touch screens). */}
+        <img
+          src={item.photo}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-20 transition-all duration-700 ease-out [filter:saturate(0.6)_brightness(0.7)] group-hover:scale-100 group-hover:opacity-60 md:opacity-0"
+        />
+        <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
+        <span aria-hidden className="absolute left-0 top-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover:scale-x-100" />
+
+        <span className="relative flex items-center justify-between">
+          <span className="font-mono text-xs text-dim transition-colors duration-300 group-hover:text-accent">0{i + 1}</span>
+          <ArrowUpRight className="h-5 w-5 text-muted transition-all duration-500 group-hover:rotate-45 group-hover:text-fg" strokeWidth={1.5} />
+        </span>
+        <span className="relative">
+          <span className="block font-wide text-base font-medium text-fg transition-transform duration-500 group-hover:translate-x-1 md:text-xl">
+            {item.title}
+          </span>
+          <span className="mt-1.5 block font-mono text-[11px] tracking-wide text-dim transition-colors duration-300 group-hover:text-fg/70">
+            {item.tags}
+          </span>
+        </span>
+      </Link>
+    </motion.div>
+  )
+}
 
 function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const mx = useSpring(useMotionValue(0), { stiffness: 40, damping: 20 })
-  const my = useSpring(useMotionValue(0), { stiffness: 40, damping: 20 })
-
-  function onMove(e) {
-    mx.set((e.clientX / window.innerWidth - 0.5) * -16)
-    my.set((e.clientY / window.innerHeight - 0.5) * -16)
-    // Drive the flashlight via CSS variables so the hero doesn't re-render on every mouse move.
-    const r = ref.current.getBoundingClientRect()
-    ref.current.style.setProperty('--x', `${e.clientX - r.left}px`)
-    ref.current.style.setProperty('--y', `${e.clientY - r.top}px`)
-  }
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '14%'])
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   return (
-    <section
-      ref={ref}
-      onMouseMove={onMove}
-      style={{ '--x': '-999px', '--y': '-999px' }}
-      className="relative flex min-h-[100svh] flex-col overflow-hidden"
-    >
-      <div className="crosshairs absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_45%,black,transparent)]" />
-      <div
-        aria-hidden
-        className="crosshairs-lit absolute inset-0 hidden opacity-70 md:block"
-        style={{ maskImage: 'radial-gradient(220px circle at var(--x) var(--y), black, transparent)', WebkitMaskImage: 'radial-gradient(220px circle at var(--x) var(--y), black, transparent)' }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 hidden md:block"
-        style={{ background: 'radial-gradient(500px circle at var(--x) var(--y), rgb(95 216 240 / 0.05), transparent 60%)' }}
-      />
-      {sensors.map(([left, top, delay]) => (
-        <span
-          key={left + top}
-          aria-hidden
-          style={{ left, top, animationDelay: delay }}
-          className="absolute hidden h-3 w-3 animate-blink md:block"
-        >
-          <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-accent" />
-          <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-accent" />
-        </span>
-      ))}
-
-      {/* The logo's emblem as a quiet watermark behind the headline. */}
+    <section ref={ref} className="relative flex min-h-[100svh] flex-col overflow-hidden">
       <motion.div
-        aria-hidden
-        style={{ x: mx, y: my }}
-        className="pointer-events-none absolute left-1/2 top-[46%] aspect-square w-[min(80vw,40rem)] -translate-x-1/2 -translate-y-1/2 bg-[url(/logo.png)] bg-[length:auto_100%] bg-left bg-no-repeat opacity-[0.045]"
-      />
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.6, delay: 0.3 }}
+        className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_55%,transparent_82%)]"
+      >
+        <HeroField />
+      </motion.div>
 
-      <motion.div style={{ y, opacity: fade }} className="wrap relative flex flex-1 flex-col items-center justify-center pt-28 pb-16 text-center">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.1 }}>
-          <Label>
-            <span className="text-accent">●</span>&nbsp;&nbsp;Cybersecurity consulting · Audits · Managed security
-          </Label>
-        </motion.div>
+      {/* Column guides that line up with the entry tiles below. */}
+      <div aria-hidden className="wrap pointer-events-none absolute inset-0 grid grid-cols-2 [mask-image:linear-gradient(to_bottom,transparent_45%,black_92%)] lg:grid-cols-4">
+        {[0, 1, 2, 3].map((c) => (
+          <motion.span
+            key={c}
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 1.6, delay: 0.1 + c * 0.12, ease }}
+            className={`origin-top border-line ${c ? 'border-l' : ''} ${c % 2 === 0 && c ? 'max-lg:border-l-0' : ''} ${c > 1 ? 'max-lg:hidden' : ''}`}
+          />
+        ))}
+      </div>
+
+      <motion.div style={{ y, opacity: fade }} className="wrap relative flex flex-1 flex-col items-center justify-center pt-32 pb-16 text-center">
+        <motion.ul
+          initial="hidden"
+          animate="show"
+          transition={{ staggerChildren: 0.08, delayChildren: 0.15 }}
+          className="flex flex-col items-center justify-center gap-x-3 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:flex-row sm:flex-wrap"
+        >
+          {credentials.map((c, i) => (
+            <motion.li key={c} variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }} className="flex items-center gap-3">
+              {i > 0 && <span className="text-dim max-sm:hidden">/</span>}
+              {c}
+            </motion.li>
+          ))}
+        </motion.ul>
 
         <h1 className="mt-8 max-w-6xl font-wide text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.035em] text-fg sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-          {[['Invest in cyber', false], ['to accelerate your', true], ['transformation.', true]].map(([line, muted], i) => (
+          {['Invest in cyber', 'to accelerate your'].map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.06em]">
               <motion.span
-                className={`block ${muted ? 'text-muted' : ''}`}
+                className={`block ${i ? 'text-muted' : ''}`}
                 initial={{ y: '105%' }}
                 animate={{ y: '0%' }}
-                transition={{ duration: 1.1, delay: 0.2 + i * 0.12, ease }}
+                transition={{ duration: 1.1, delay: 0.25 + i * 0.12, ease }}
               >
                 {line}
               </motion.span>
             </span>
           ))}
+          <span className="block overflow-hidden pb-[0.2em]">
+            <motion.span
+              className="relative inline-block text-muted"
+              initial={{ y: '105%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 1.1, delay: 0.49, ease }}
+            >
+              transformation.
+              {/* Hand-drawn stroke under the key word, drawn once the line has landed. */}
+              <svg aria-hidden viewBox="0 0 400 20" preserveAspectRatio="none" className="absolute -bottom-[0.12em] left-[2%] h-[0.22em] w-[94%] overflow-visible">
+                <motion.path
+                  d="M2 14 C 90 4, 210 2, 398 10"
+                  fill="none"
+                  stroke="#5fd8f0"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1, delay: 1.35, ease: 'easeInOut' }}
+                />
+              </svg>
+            </motion.span>
+          </span>
         </h1>
 
         <motion.p
@@ -110,27 +152,26 @@ function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.9, ease }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
         >
           <Button to="/contact">Book a free assessment</Button>
-          <Button to="/services" variant="secondary">Our services</Button>
+          <ArrowLink to="/services">Explore our services</ArrowLink>
         </motion.div>
       </motion.div>
 
       <div className="relative border-t border-line">
-        <div className="wrap grid grid-cols-2 lg:grid-cols-4">
-          {credentials.map(([k, v], i) => (
-            <motion.div
-              key={k}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.1 + i * 0.08, duration: 0.6 }}
-              className={`py-5 ${i % 2 ? 'pl-5' : 'pr-5'} ${i > 1 ? 'border-t border-line lg:border-t-0' : ''} ${i ? 'lg:border-l lg:border-line lg:pl-6' : ''} ${i % 2 ? 'border-l border-line' : ''}`}
-            >
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">{k}</p>
-              <p className="mt-1 text-sm text-fg">{v}</p>
-            </motion.div>
-          ))}
+        <div className="wrap">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.05, duration: 0.6 }}
+            className="border-b border-line py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-dim"
+          >
+            Where do you need help?
+          </motion.p>
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {entryPoints.map((item, i) => <EntryTile key={item.title} item={item} i={i} />)}
+          </div>
         </div>
       </div>
     </section>
@@ -176,6 +217,23 @@ function Intro() {
           <ArrowLink to="/about">More about RES-Q-RITY</ArrowLink>
           <ArrowLink to="/about#leadership">Meet our leadership</ArrowLink>
         </FadeUp>
+
+        <div className="mt-20 grid gap-5 md:grid-cols-12 md:gap-6">
+          <Photo
+            src="/images/strategy-meeting.jpg"
+            alt="Business professionals discussing strategy around a laptop"
+            caption="Strategy & governance workshops"
+            className="aspect-[16/10] md:col-span-8"
+            imgClassName="object-[60%_30%]"
+          />
+          <Photo
+            src="/images/late-night-team.jpg"
+            alt="Two colleagues working late at a desk in a dim office"
+            caption="When incidents can't wait"
+            className="aspect-[4/5] md:col-span-4 md:mt-24"
+            imgClassName="object-[72%_center]"
+          />
+        </div>
       </div>
     </section>
   )
@@ -277,6 +335,7 @@ export default function Home() {
       <Intro />
       <FrameworksBand />
       <Services />
+      <ImageBand />
       <Approach index="03" />
       <Industries index="04" />
       <SelectedWork />

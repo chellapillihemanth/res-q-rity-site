@@ -104,13 +104,20 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-t border-line bg-ink-2">
-        <div className="crosshairs absolute inset-0 opacity-60" />
-        <div className="wrap relative grid gap-8 py-16 md:grid-cols-12 md:items-end md:py-20">
+      <section className="relative flex min-h-[60vh] items-end overflow-hidden border-t border-line bg-ink-2">
+        <img
+          src="/images/hyderabad-hitec-city.jpg"
+          alt="Office towers in Hyderabad's Knowledge City, near T-Hub"
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.55)_brightness(0.7)]"
+        />
+        <div aria-hidden className="absolute inset-0 bg-[#0a1a33]/45 mix-blend-multiply" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/10" />
+        <div className="wrap relative grid w-full gap-8 py-16 md:grid-cols-12 md:items-end md:py-20">
           <div className="md:col-span-8">
             <Label><span className="text-accent">●</span>&nbsp;&nbsp;Visit us</Label>
-            <p className="mt-5 font-wide text-3xl font-semibold leading-tight tracking-[-0.02em] text-fg md:text-4xl">
-              T-Hub, Knowledge City <span className="text-dim">Hyderabad</span>
+            <p className="mt-5 font-wide text-3xl font-semibold leading-tight tracking-[-0.02em] text-fg md:text-5xl">
+              T-Hub, Knowledge City <span className="text-fg/60">Hyderabad</span>
             </p>
           </div>
           <div className="md:col-span-4 md:justify-self-end">
