@@ -367,6 +367,7 @@ export function ImageBand({
   muted = 'without the infrastructure overhead.',
   text = 'Monitoring, detection and response through our SIEM and EDR partners, run by people who know your environment.',
   link = { to: '/solutions', label: 'Explore solutions' },
+  busy = false, // photos with lots of detail (screens, text) get a softer, darker treatment
 }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
@@ -378,10 +379,10 @@ export function ImageBand({
         alt={alt}
         loading="lazy"
         style={{ y, scale: 1.25 }}
-        className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.6)_brightness(0.75)]"
+        className={`absolute inset-0 h-full w-full object-cover ${busy ? '[filter:saturate(0.5)_brightness(0.6)_blur(2px)]' : '[filter:saturate(0.6)_brightness(0.75)]'}`}
       />
       <div aria-hidden className="absolute inset-0 bg-[#0a1a33]/40 mix-blend-multiply" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
+      <div aria-hidden className={`absolute inset-0 bg-gradient-to-t ${busy ? 'from-ink via-ink/80 to-ink/40' : 'from-ink via-ink/50 to-ink/10'}`} />
       <div className="wrap relative pb-14 md:pb-20">
         <FadeUp><Label><span className="text-accent">●</span>&nbsp;&nbsp;{label}</Label></FadeUp>
         <Reveal

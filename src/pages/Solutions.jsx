@@ -38,6 +38,7 @@ export default function Solutions() {
         muted="matched to your environment."
         text="EDR, SIEM, DLP, email security, OT visibility and GRC platforms from leading vendors, sourced and deployed with you."
         link={null}
+        busy
       />
 
       <section className="py-24 md:py-32">
