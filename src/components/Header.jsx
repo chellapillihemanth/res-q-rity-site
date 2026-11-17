@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
-import { navLinks, contact, serviceTracks } from '../data/content'
+import { navLinks, contact, serviceTracks, bookingLink } from '../data/content'
 import { lockScroll } from '../lib/scroll'
 import { Button, ease } from './ui'
 
@@ -37,7 +37,7 @@ export default function Header() {
             <img src="/logo.png" alt="RES-Q-RITY, A New Dimension of Security" className="h-8 w-auto md:h-9" />
           </Link>
 
-          <nav className="hidden items-center gap-9 lg:flex">
+          <nav className="hidden items-center gap-7 xl:gap-9 lg:flex">
             {navLinks.slice(1).map((l) => (
               <NavLink
                 key={l.to}
@@ -63,7 +63,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden lg:block" onMouseEnter={() => setMega(false)}>
-            <Button to="/contact" className="!py-2.5">Free assessment</Button>
+            <Button {...bookingLink} className="!py-2.5">Free assessment</Button>
           </div>
 
           <button
@@ -102,11 +102,11 @@ export default function Header() {
                     </ul>
                   </div>
                 ))}
-                <Link to="/contact" className="group col-span-3 flex flex-col justify-between rounded-lg border border-line bg-ink-2 p-6 transition-colors hover:border-accent/50">
+                <Link to="/contact#enquiry" className="group col-span-3 flex flex-col justify-between rounded-lg border border-line bg-ink-2 p-6 transition-colors hover:border-accent/50">
                   <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">Free</p>
+                    <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Free</p>
                     <p className="mt-3 font-wide text-lg font-medium leading-snug text-fg">Initial technical assessment</p>
-                    <p className="mt-2 text-sm">Find your biggest risks in one short engagement.</p>
+                    <p className="mt-2 text-sm">About five working days. A 30-minute call and a questionnaire, no system access.</p>
                   </div>
                   <span className="mt-6 text-sm text-fg">Book now <span className="inline-block transition-transform group-hover:translate-x-1">→</span></span>
                 </Link>

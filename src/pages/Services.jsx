@@ -11,7 +11,7 @@ const whyIso = [
   'Tailored to your business model, risk appetite and industry',
   'Audit-ready documentation aligned with certification standards',
   'We work as an extension of your InfoSec and compliance teams',
-  'Tool advisory improves implementation efficiency by 35–40%',
+  'Tooling advice from a value-added partner, so controls and products are designed together',
   'Proven ISO 27001 experience in BFSI and manufacturing',
 ]
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { navLinks, contact, address } from '../data/content'
+import { landingPages } from '../data/landing'
 import SocialLinks from './SocialIcons'
 
 const serviceLinks = [
@@ -7,14 +8,14 @@ const serviceLinks = [
   { label: 'Audit & compliance', to: '/services#audit' },
   { label: 'On-demand experts', to: '/services#ondemand' },
   { label: 'ISO 27001', to: '/services#iso' },
-  { label: 'Technology partners', to: '/solutions' },
+  { label: 'Problems we solve', to: '/solutions' },
 ]
 
 export default function Footer() {
   return (
     <footer className="border-t border-line bg-ink-2">
       <div className="wrap grid gap-12 py-16 md:grid-cols-12">
-        <div className="md:col-span-5">
+        <div className="md:col-span-4">
           <img src="/logo.png" alt="RES-Q-RITY" className="h-9 w-auto" />
           <p className="mt-6 max-w-sm text-sm leading-relaxed">
             Cybersecurity consulting, audits and managed security for growing businesses. Founded in 2022 on the
@@ -43,7 +44,16 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="md:col-span-3">
+        <div className="md:col-span-2">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Popular</p>
+          <ul className="mt-5 space-y-3 text-sm">
+            {landingPages.map((p) => (
+              <li key={p.slug}><Link to={'/' + p.slug} className="link-underline transition-colors hover:text-fg">{p.nav}</Link></li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="md:col-span-2">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Office</p>
           <address className="mt-5 text-sm not-italic leading-relaxed">{address.full}</address>
           <a href={contact.phoneHref} className="link-underline mt-4 inline-block text-sm text-fg">{contact.phone}</a>

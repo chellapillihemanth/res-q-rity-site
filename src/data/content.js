@@ -9,27 +9,36 @@ export const contact = {
   phoneHref: 'tel:+919111668818',
   address: "T-Hub, Knowledge City, Hyderabad, Telangana 500081",
   website: 'www.res-q-rity.com',
+  // Only active channels. Replace with the LinkedIn *company* page URL once it exists.
   socials: {
     linkedin: 'https://www.linkedin.com/in/res-q-rity-a-new-dimension-of-security-617ba5301/',
-    twitter: 'https://twitter.com/resqrity',
-    instagram: 'https://www.instagram.com/resqrity/',
-    facebook: 'https://www.facebook.com/profile.php?id=61557678493033',
   },
+  // Paste a Calendly / Google Calendar / Zoho Bookings link here and every "Book a free assessment" button opens it.
+  bookingUrl: '',
+  // WhatsApp Business number in international format without + or spaces (e.g. '919111668818'). Empty hides the link.
+  whatsapp: '',
+}
+
+export const bookingLink = contact.bookingUrl ? { href: contact.bookingUrl, target: '_blank', rel: 'noreferrer' } : { to: '/contact#enquiry' }
+export const whatsappHref = contact.whatsapp
+  ? `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent('Hi RES-Q-RITY, I would like to discuss a security assessment.')}`
+  : ''
+
+// Contact form delivery. Submissions are sent by Web3Forms to the inbox the access key was created for
+// (tpagidipati@res-q-rity.com). The key is public by design; set it as VITE_WEB3FORMS_KEY.
+export const enquiryForm = {
+  recipient: 'tpagidipati@res-q-rity.com',
+  web3formsKey: import.meta.env.VITE_WEB3FORMS_KEY || '',
 }
 
 export const navLinks = [
   { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Solutions', to: '/solutions' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Case studies', to: '/case-studies' },
+  { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
-]
-
-export const stats = [
-  { value: 2022, label: 'Founded', plain: true },
-  { value: 11, suffix: '+', label: 'Enterprise clients' },
-  { value: 20, suffix: '+', label: 'Technology partners' },
-  { value: 40, suffix: '%', label: 'Faster implementation' },
 ]
 
 export const clients = [
@@ -253,10 +262,34 @@ export const engagementSteps = [
   { title: 'Continued support', text: 'Ongoing advisory so your defences keep pace with the threat landscape.' },
 ]
 
-export const caseWork = [
-  { client: 'Quartic.ai', sector: 'Industrial AI', work: 'Designed an ISO 27001 security roadmap, closed control gaps and supported a successful ISO 9001 audit.' },
+// Case studies follow one shape: problem, scope, duration, result. Only fill in what the client has signed off.
+// A field left as null is simply not shown, so nothing is ever invented on the page.
+export const caseStudies = [
+  {
+    slug: 'quartic-ai',
+    client: 'Quartic.ai',
+    logo: 'quartic',
+    sector: 'Industrial AI · Manufacturing',
+    headline: 'ISO 27001-aligned controls and a passed ISO 9001 audit',
+    problem: 'Quartic.ai needed its information security controls to meet ISO 27001 expectations, and had an ISO 9001 audit coming up that it could not afford to fail.',
+    scope: ['Gap assessment against ISO 27001 controls', 'Remediation of the control gaps found', 'A formal change management process', 'Preparation and support for the ISO 9001 audit'],
+    duration: null, // TODO: confirm engagement length with the client, e.g. '4 months'
+    result: 'Control gaps closed, change management in place, and the ISO 9001 audit passed.',
+    metrics: [], // TODO: add signed-off numbers, e.g. { value: '37', label: 'control gaps closed' }
+    quote: {
+      text: 'They guided us to meet ISO 27001 standards, finding gaps in our system and fixing them. They introduced better change management and helped us pass an important ISO 9001 audit.',
+      name: 'Preyas Mistry',
+      title: null, // TODO: job title, e.g. 'Head of Engineering'
+      photo: '/people/preyas-mistry.jpg',
+    },
+  },
+]
+
+// Training and enablement work: real, but not a security programme, so it is listed separately.
+export const otherWork = [
   { client: 'Great Learning', sector: 'EdTech', work: 'Designed and delivered a four-month cybersecurity course for professional learners.' },
-  { client: 'Synergy Software Solutions', sector: 'Software, Malaysia', work: 'Built black-box security test environments for their engineering teams.' },
+  { client: 'Synergy Software Solutions', sector: 'Software, Malaysia', work: 'Built black-box security test environments for engineering teams.' },
+  { client: 'Cigniti × herDigital Story', sector: 'Women in tech', work: 'Cybersecurity upskilling for women entering technology careers.' },
 ]
 
 export const testimonials = [
@@ -267,10 +300,6 @@ export const testimonials = [
   {
     quote: 'Cigniti is really happy to have worked with Res-Q-Rity on our project to help women learn about new tech. Together, we helped lots of women get into tech fields. They made a big difference.',
     name: 'Tanya Singh', org: 'Cigniti', photo: '/people/tanya-singh.jpg',
-  },
-  {
-    quote: 'BlockVerse Institute is grateful to Res-Q-Rity for their outstanding contribution in teaching African students about cybersecurity. Our students learned a lot about keeping digital information safe.',
-    name: 'Gaurav', org: 'BlockVerse Institute', photo: '/people/gaurav.jpg',
   },
 ]
 
@@ -323,7 +352,7 @@ export const assessmentDomains = [
 export const faqs = [
   {
     q: 'What does the free technical assessment include?',
-    a: 'A no-cost review of your current security posture across identity, endpoints, cloud, email, third parties and compliance. You get objective findings and practical recommendations, with no obligation to continue.',
+    a: 'A no-cost review of your security posture across identity, endpoints, cloud, email, third parties and compliance. It takes about five working days and needs only a 30-minute kickoff call and a short questionnaire, with no system access. Our senior consultants deliver it, and you get a scored report and prioritised roadmap, with no obligation to continue. It suits companies with 25 or more employees, or any team facing an audit or customer security review.',
   },
   {
     q: 'Do you only consult, or can you also provide security products?',
@@ -367,3 +396,110 @@ export const leadership = [
     highlights: ['10+ years in industry', 'Automation engineering background', 'Operations & delivery'],
   },
 ]
+
+/* ---------------------------------------------------------------------------------------------
+   Solutions page: written as the problem a buyer has, then how we solve it. The vendors are the
+   means, not the message, so they appear last and small.
+--------------------------------------------------------------------------------------------- */
+export const solutionProblems = [
+  {
+    id: 'ransomware',
+    short: 'Ransomware & endpoint attacks',
+    problem: 'One ransomware attack could stop the business for weeks.',
+    signs: ['Antivirus is the only thing on your laptops and servers', 'Nobody would notice an attacker moving between machines at 2 a.m.', 'You have never tested how fast you could recover'],
+    solution: 'We deploy endpoint detection and response on every device, tune it to your environment, and connect it to monitoring so suspicious behaviour is contained before it spreads.',
+    outcome: 'Attacks caught at the first machine, not the hundredth.',
+    tools: ['CrowdStrike'],
+  },
+  {
+    id: 'visibility',
+    short: 'No one watching the logs',
+    problem: 'You have logs everywhere and nobody watching them.',
+    signs: ['Firewall, cloud and application logs sit in separate consoles', 'Alerts go to an inbox no one owns', 'An auditor asked for incident evidence and you had to dig for it'],
+    solution: 'We centralise your logs in a SIEM, write detections for the threats that matter to your sector, and set up SOC-as-a-Service so alerts are triaged by analysts, not ignored.',
+    outcome: 'One place to see what is happening, and people who act on it.',
+    tools: ['Securonix', 'Graylog'],
+  },
+  {
+    id: 'data-loss',
+    short: 'Data leaking out',
+    problem: 'Sensitive data is leaving through email, USB drives and AI tools.',
+    signs: ['Staff paste customer data into ChatGPT or Copilot', 'There is no record of what leaves on USB or personal email', 'DPDPA asks you to show how personal data is protected'],
+    solution: 'We classify your sensitive data, then put data loss prevention policies on endpoints, email, cloud apps and AI tools, starting in monitor mode so the business is not disrupted.',
+    outcome: 'You know where your data goes, and the risky paths are closed.',
+    tools: ['Forcepoint', 'Zecurion'],
+  },
+  {
+    id: 'phishing',
+    short: 'Phishing that gets through',
+    problem: 'Phishing emails keep getting through, and people keep clicking.',
+    signs: ['Fake invoices and CEO emails reach finance', 'Awareness training is a yearly slide deck', 'You cannot say which teams are most at risk'],
+    solution: 'We add a dedicated email security layer on top of Microsoft 365 or Google Workspace, then run phishing simulations and short training based on what your staff actually fall for.',
+    outcome: 'Fewer malicious emails delivered, and a measurable drop in click rates.',
+    tools: ['Proofpoint', 'IRONSCALES', 'KnowBe4', 'VIPRE'],
+  },
+  {
+    id: 'exposure',
+    short: 'Unknown exposure & vendor risk',
+    problem: 'You do not know what attackers can see about you, or what your vendors expose.',
+    signs: ['Leaked credentials or forgotten subdomains you have never checked', 'Vendors with access to your data have never been assessed', 'Customers send you security questionnaires about your supply chain'],
+    solution: 'We monitor the dark web, your external attack surface and your brand, and score your third parties so you know which vendors need attention first.',
+    outcome: 'Early warning on leaks, and a vendor risk register you can show an auditor.',
+    tools: ['KELA', 'CloudSEK', 'UpGuard', 'SecurityScorecard'],
+  },
+  {
+    id: 'validation',
+    short: 'Unproven defences',
+    problem: 'You have bought security tools but cannot prove they would stop a real attack.',
+    signs: ['The board asks “are we protected?” and the answer is a list of products', 'Controls were configured once and never tested', 'A penetration test happens once a year at most'],
+    solution: 'We run safe, continuous breach and attack simulations against your own controls, show you which attacks get through, and fix the configuration gaps.',
+    outcome: 'Evidence, not assumptions, about what your defences stop.',
+    tools: ['SafeBreach'],
+  },
+  {
+    id: 'ot',
+    short: 'OT & plant blind spots',
+    problem: 'Your plant or OT network is a blind spot.',
+    signs: ['No inventory of PLCs, sensors and controllers', 'IT and OT networks are connected but nobody monitors the link', 'Patching OT is not possible, so risk just accumulates'],
+    solution: 'We deploy passive OT and IoT monitoring that builds an asset inventory, flags vulnerabilities and detects anomalies without touching production.',
+    outcome: 'Full visibility of the plant floor, with no downtime.',
+    tools: ['Nozomi Networks'],
+  },
+  {
+    id: 'audits',
+    short: 'Audits run on spreadsheets',
+    problem: 'Every audit means months of spreadsheets and chasing evidence.',
+    signs: ['ISO 27001 or SOC 2 evidence lives in shared folders', 'Risks are tracked in Excel and go stale', 'Each new framework feels like starting from zero'],
+    solution: 'We set up a GRC platform, map your controls once across frameworks, and automate evidence collection so audits become a review, not a project.',
+    outcome: 'Audit-ready all year, and new frameworks added in weeks.',
+    tools: ['Scrut Automation', 'Archer'],
+  },
+  {
+    id: 'code',
+    short: 'Unchecked open-source code',
+    problem: 'Your developers ship open-source code nobody has checked.',
+    signs: ['No software bill of materials for your product', 'Enterprise customers ask about licence and dependency risk', 'Vulnerable libraries are found after release, not before'],
+    solution: 'We add software composition analysis and SBOM generation to your pipeline, with remediation guidance developers can act on at commit time.',
+    outcome: 'Known vulnerabilities blocked before they reach production.',
+    tools: ['Flyingduck'],
+  },
+  {
+    id: 'devices',
+    short: 'Unmanaged devices',
+    problem: 'Company data lives on phones and laptops you do not manage.',
+    signs: ['Staff use personal phones for email and WhatsApp', 'A lost laptop means a lost dataset', 'Patches depend on people clicking “update”'],
+    solution: 'We roll out unified endpoint management with zero-trust access, separate work data from personal data, and automate patching.',
+    outcome: 'Lost devices wiped remotely, and every device patched on schedule.',
+    tools: ['IBM MaaS360', 'Trio'],
+  },
+]
+
+/* Free assessment: what it is, how long, what we need, who delivers.
+   TODO (client): confirm these details before launch. They are written as a sensible default. */
+export const assessmentOffer = {
+  duration: 'About 5 working days from kickoff to read-out',
+  needs: 'A 30-minute kickoff call and a short questionnaire. No system access or agents required.',
+  deliveredBy: 'Senior consultants, led by our founder Tejasree Pagidipati, a former CISO',
+  output: 'A scored posture report and a prioritised remediation roadmap, walked through on a call',
+  fit: 'For companies with 25+ employees, or any team facing an audit or customer security review',
+}

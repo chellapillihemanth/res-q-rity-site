@@ -12,20 +12,20 @@ export function Reveal({ text, muted = '', as: Tag = 'h2', className = '', delay
     ...text.split(' ').map((w) => ({ w, m: false })),
     ...(muted ? muted.split(' ').map((w) => ({ w, m: true })) : []),
   ]
-  const trigger = animateOnMount ? { animate: 'show' } : { whileInView: 'show', viewport: { once: true, amount: 0.5 } }
+  const trigger = animateOnMount ? { animate: 'show' } : { whileInView: 'show', viewport: { once: true, amount: 0.3 } }
   return (
     <MotionTag
       className={className}
       initial="hidden"
       {...trigger}
-      transition={{ staggerChildren: 0.035, delayChildren: delay }}
+      transition={{ staggerChildren: 0.02, delayChildren: delay }}
       aria-label={`${text} ${muted}`.trim()}
     >
       {words.map(({ w, m }, i) => (
         <span key={i} aria-hidden className="inline-block overflow-hidden pb-[0.08em] align-bottom">
           <motion.span
             className={`inline-block ${m ? 'text-dim' : ''}`}
-            variants={{ hidden: { y: '105%' }, show: { y: '0%', transition: { duration: 0.9, ease } } }}
+            variants={{ hidden: { y: '105%' }, show: { y: '0%', transition: { duration: 0.6, ease } } }}
           >
             {w}
           </motion.span>
@@ -41,10 +41,10 @@ export function FadeUp({ children, delay = 0, className = '', as = 'div' }) {
   return (
     <M
       className={className}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, delay, ease }}
+      viewport={{ once: true, amount: 0.1, margin: '0px 0px -40px 0px' }}
+      transition={{ duration: 0.45, delay: Math.min(delay, 0.15), ease }}
     >
       {children}
     </M>
@@ -137,7 +137,7 @@ export function Photo({ src, alt, caption, className = '', imgClassName = '', pa
       initial={{ clipPath: 'inset(12% 0% 12% 0%)', opacity: 0.4 }}
       whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 1.2, ease }}
+      transition={{ duration: 0.8, ease }}
       className={`relative overflow-hidden rounded-lg border border-line bg-ink-2 ${className}`}
     >
       <motion.img
@@ -150,7 +150,7 @@ export function Photo({ src, alt, caption, className = '', imgClassName = '', pa
       <div aria-hidden className="absolute inset-0 bg-[#0a1a33]/35 mix-blend-multiply" />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
       {caption && (
-        <figcaption className="absolute bottom-0 left-0 p-5 font-mono text-[11px] uppercase tracking-[0.14em] text-fg/80">{caption}</figcaption>
+        <figcaption className="absolute bottom-0 left-0 p-5 font-mono text-xs uppercase tracking-[0.14em] text-fg/80">{caption}</figcaption>
       )}
     </motion.figure>
   )

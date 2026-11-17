@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, animate, useInView, useScroll, useTransform } from 'motion/react'
-import { ArrowUpRight } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { ArrowUpRight, MessageCircle } from 'lucide-react'
 import CTA from '../components/CTA'
 import HeroField from '../components/HeroField'
 import { ArrowLink, Button, FadeUp, Label, Photo, Rule, SectionHeader, ease } from '../components/ui'
-import { Approach, Assessment, Faq, FrameworksBand, ImageBand, Industries, LogoWall, Process, Testimonials } from '../components/sections'
-import { caseWork, partnerCategories } from '../data/content'
+import { Approach, Assessment, CaseStudy, Faq, FrameworksBand, ImageBand, Industries, LogoWall, Process, Testimonials } from '../components/sections'
+import { bookingLink, caseStudies, solutionProblems, whatsappHref } from '../data/content'
 
 const credentials = ['DSCI member', 'Incubated at IIM Bangalore · NSRCEL', 'T-Hub, Hyderabad']
 
@@ -14,8 +14,8 @@ const credentials = ['DSCI member', 'Incubated at IIM Bangalore · NSRCEL', 'T-H
 const entryPoints = [
   { title: 'Get audit-ready', tags: 'ISO 27001 · SOC 2 · PCI DSS', to: '/services#audit', photo: '/images/roadmap-discussion.jpg' },
   { title: 'Hire a virtual CISO', tags: 'Strategy · Risk · Policy', to: '/services#program', photo: '/images/advisory-session.jpg' },
-  { title: 'Monitor & respond', tags: 'SOC · SIEM · EDR', to: '/solutions', photo: '/images/circuit-board.jpg' },
-  { title: 'Not sure where to start?', tags: 'Free technical assessment', to: '/contact', photo: '/images/analytics-dashboard.jpg' },
+  { title: 'Monitor & respond', tags: 'SOC · SIEM · EDR', to: '/solutions#visibility', photo: '/images/circuit-board.jpg' },
+  { title: 'Not sure where to start?', tags: 'Free technical assessment', to: '/contact#enquiry', photo: '/images/analytics-dashboard.jpg' },
 ]
 
 function EntryTile({ item, i }) {
@@ -46,7 +46,7 @@ function EntryTile({ item, i }) {
           <span className="block font-wide text-base font-medium text-fg transition-transform duration-500 group-hover:translate-x-1 md:text-xl">
             {item.title}
           </span>
-          <span className="mt-1.5 block font-mono text-[11px] tracking-wide text-dim transition-colors duration-300 group-hover:text-fg/70">
+          <span className="mt-1.5 block font-mono text-xs tracking-wide text-dim transition-colors duration-300 group-hover:text-fg/70">
             {item.tags}
           </span>
         </span>
@@ -90,7 +90,7 @@ function Hero() {
           initial="hidden"
           animate="show"
           transition={{ staggerChildren: 0.08, delayChildren: 0.15 }}
-          className="flex flex-col items-center justify-center gap-x-3 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted sm:flex-row sm:flex-wrap"
+          className="flex flex-col items-center justify-center gap-x-3 gap-y-1.5 font-mono text-xs uppercase tracking-[0.14em] text-muted sm:flex-row sm:flex-wrap"
         >
           {credentials.map((c, i) => (
             <motion.li key={c} variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }} className="flex items-center gap-3">
@@ -100,8 +100,8 @@ function Hero() {
           ))}
         </motion.ul>
 
-        <h1 className="mt-8 max-w-6xl font-wide text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.035em] text-fg sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-          {['Invest in cyber', 'to accelerate your'].map((line, i) => (
+        <h1 className="mt-8 max-w-6xl font-wide text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.035em] text-fg sm:text-6xl md:text-7xl lg:text-[4.9rem]">
+          {['Get ISO 27001 or SOC 2', 'audit-ready, without'].map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.06em]">
               <motion.span
                 className={`block ${i ? 'text-muted' : ''}`}
@@ -120,7 +120,7 @@ function Hero() {
               animate={{ y: '0%' }}
               transition={{ duration: 1.1, delay: 0.49, ease }}
             >
-              transformation.
+              hiring a CISO.
               {/* Hand-drawn stroke under the key word, drawn once the line has landed. */}
               <svg aria-hidden viewBox="0 0 400 20" preserveAspectRatio="none" className="absolute -bottom-[0.12em] left-[2%] h-[0.22em] w-[94%] overflow-visible">
                 <motion.path
@@ -144,8 +144,8 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.75, ease }}
           className="mt-8 max-w-xl text-base leading-relaxed md:text-lg"
         >
-          We run your security program, get you audit-ready and source the right tools, so you can scale without
-          carrying the risk.
+          For growing companies in fintech, SaaS, healthcare and manufacturing. We run your security program, get you
+          through the audit and source the right tools, so you can scale without carrying the risk.
         </motion.p>
 
         <motion.div
@@ -154,8 +154,13 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.9, ease }}
           className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
         >
-          <Button to="/contact">Book a free assessment</Button>
+          <Button {...bookingLink}>Book a free assessment</Button>
           <ArrowLink to="/services">Explore our services</ArrowLink>
+          {whatsappHref && (
+            <a href={whatsappHref} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-fg">
+              <MessageCircle className="h-4 w-4 text-accent" /> WhatsApp us
+            </a>
+          )}
         </motion.div>
       </motion.div>
 
@@ -165,7 +170,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.05, duration: 0.6 }}
-            className="border-b border-line py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-dim"
+            className="border-b border-line py-3 font-mono text-xs uppercase tracking-[0.14em] text-dim"
           >
             Where do you need help?
           </motion.p>
@@ -176,18 +181,6 @@ function Hero() {
       </div>
     </section>
   )
-}
-
-function CountUp({ to, prefix = '', suffix = '' }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, amount: 0.8 })
-  const [n, setN] = useState(0)
-  useEffect(() => {
-    if (!inView) return
-    const c = animate(0, to, { duration: 1.6, ease, onUpdate: (v) => setN(Math.round(v)) })
-    return () => c.stop()
-  }, [inView, to])
-  return <span ref={ref}>{prefix}{n}{suffix}</span>
 }
 
 function Intro() {
@@ -203,12 +196,12 @@ function Intro() {
         />
         <div className="mt-16 grid gap-px overflow-hidden border-y border-line bg-line md:ml-[25%] md:grid-cols-3">
           {[
-            [{ to: 11, suffix: '+' }, 'Enterprise clients across fintech, healthcare, manufacturing and SaaS'],
-            [{ to: 20, suffix: '+' }, 'Technology partners, from CrowdStrike to Nozomi Networks'],
-            [{ prefix: '35–', to: 40, suffix: '%' }, 'Faster ISO 27001 implementation with our tool advisory'],
+            ['11', 'Enterprise clients across fintech, healthcare, manufacturing and SaaS'],
+            ['15', 'Frameworks and regulations covered, from ISO 27001 and SOC 2 to DPDPA and RBI'],
+            ['20+', 'Technology partners, from CrowdStrike to Nozomi Networks'],
           ].map(([n, t], i) => (
             <FadeUp key={t} delay={i * 0.1} className="bg-ink py-8 md:px-8 md:first:pl-0">
-              <p className="font-wide text-4xl font-semibold tabular-nums tracking-[-0.03em] text-fg md:text-5xl"><CountUp {...n} /></p>
+              <p className="font-wide text-4xl font-semibold tabular-nums tracking-[-0.03em] text-fg md:text-5xl">{n}</p>
               <p className="mt-3 max-w-[16rem] text-sm leading-relaxed">{t}</p>
             </FadeUp>
           ))}
@@ -229,7 +222,7 @@ function Intro() {
           <Photo
             src="/images/late-night-team.jpg"
             alt="Two colleagues working late at a desk in a dim office"
-            caption="When incidents can't wait"
+            caption="Working alongside your team"
             className="aspect-[4/5] md:col-span-4 md:mt-24"
             imgClassName="object-[72%_center]"
           />
@@ -278,49 +271,42 @@ function Services() {
 }
 
 function SelectedWork() {
-  const logos = { 'Quartic.ai': 'quartic', 'Great Learning': 'great-learning', 'Synergy Software Solutions': 'synergy' }
   return (
     <section className="py-24 md:py-32">
       <div className="wrap">
-        <SectionHeader index="05" label="Selected work" title="Real engagements," muted="real outcomes." />
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-          {caseWork.map((c, i) => (
-            <FadeUp key={c.client} delay={i * 0.1} className="group">
-              <div className="flex h-44 items-center justify-center rounded-lg border border-line bg-ink-2 transition-colors duration-500 group-hover:border-line-strong">
-                <img src={`/clients/${logos[c.client]}.png`} alt={c.client} className="max-h-12 max-w-[60%] opacity-80 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100" />
-              </div>
-              <p className="mt-6 font-mono text-xs uppercase tracking-[0.14em] text-dim">{c.sector}</p>
-              <h3 className="mt-2 font-wide text-xl font-medium text-fg">{c.client}</h3>
-              <p className="mt-2 leading-relaxed">{c.work}</p>
-            </FadeUp>
-          ))}
-        </div>
+        <SectionHeader index="05" label="Case study" title="What an engagement" muted="actually looks like." />
+        <FadeUp className="mt-14"><CaseStudy c={caseStudies[0]} /></FadeUp>
+        <FadeUp className="mt-8"><ArrowLink to="/case-studies">All case studies and client work</ArrowLink></FadeUp>
       </div>
     </section>
   )
 }
 
-function Partners() {
+/* Problems first; the vendor list lives on the Solutions page as a footnote to each fix. */
+function Problems() {
   return (
     <section className="py-24 md:py-32">
       <div className="wrap">
         <SectionHeader
           index="09"
-          label="Technology partners"
-          title="We close tooling gaps,"
-          muted="so you don't have to go vendor shopping."
-          text="As a value-added channel partner we recommend, source and deploy the right product for the job, and only where it fits."
+          label="Problems we solve"
+          title="Tell us what keeps you up,"
+          muted="and we'll show you the fix."
+          text="Each of these has a tested answer: designed by us, deployed with your team, and run with proven tools where they earn their place."
         />
         <FadeUp className="mt-14 md:ml-[25%]">
-          <dl className="border-t border-line">
-            {partnerCategories.slice(0, 7).map((c) => (
-              <div key={c.id} className="grid gap-1 border-b border-line py-4 text-sm transition-colors hover:bg-ink-2 sm:grid-cols-[16rem_1fr] sm:gap-6 sm:px-2">
-                <dt className="text-muted">{c.title}</dt>
-                <dd className="text-fg">{c.partners.map((p) => p.name).join(' · ')}</dd>
-              </div>
+          <ul className="border-t border-line">
+            {solutionProblems.slice(0, 6).map((p, i) => (
+              <li key={p.id}>
+                <Link to={'/solutions#' + p.id} className="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-line py-5 transition-colors hover:bg-ink-2 sm:px-2">
+                  <span className="font-mono text-xs text-dim group-hover:text-accent">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-[15px] text-fg md:text-lg">{p.problem}</span>
+                  <ArrowUpRight className="h-4 w-4 text-muted transition-transform duration-300 group-hover:rotate-45 group-hover:text-accent" />
+                </Link>
+              </li>
             ))}
-          </dl>
-          <div className="mt-8"><ArrowLink to="/solutions">All solutions and partners</ArrowLink></div>
+          </ul>
+          <div className="mt-8"><ArrowLink to="/solutions">See all ten problems and how we solve them</ArrowLink></div>
         </FadeUp>
       </div>
     </section>
@@ -342,7 +328,7 @@ export default function Home() {
       <Assessment index="06" />
       <Process index="07" />
       <Testimonials index="08" />
-      <Partners />
+      <Problems />
       <Faq index="10" />
       <CTA />
     </>

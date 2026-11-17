@@ -4,8 +4,9 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react'
 import { Check, Minus, ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 import {
   clientLogos, approach, engagementSteps, testimonials, recognition, roadmap,
-  frameworks, industries, assessmentDomains, faqs, leadership, founderMessage,
+  frameworks, industries, assessmentDomains, faqs, leadership, founderMessage, assessmentOffer, bookingLink,
 } from '../data/content'
+import { sendEnquiry } from '../lib/enquiry'
 import { ArrowLink, Button, FadeUp, Label, Reveal, Rule, SectionHeader, ease } from './ui'
 
 export function LogoWall({ title = 'Trusted by teams in fintech, healthcare, manufacturing and SaaS' }) {
@@ -15,7 +16,7 @@ export function LogoWall({ title = 'Trusted by teams in fintech, healthcare, man
     <section className="py-20 md:py-24">
       <div className="wrap">
         <FadeUp className="flex flex-wrap items-end justify-between gap-4">
-          <Label className="!text-dim">{title}</Label>
+          <Label>{title}</Label>
           <Link to="/contact" className="group text-sm text-muted transition-colors hover:text-fg">
             Your company next? <span className="text-accent transition-transform duration-300 inline-block group-hover:translate-x-1">→</span>
           </Link>
@@ -35,7 +36,7 @@ export function LogoWall({ title = 'Trusted by teams in fintech, healthcare, man
                     alt={i < clientLogos.length ? c.name : ''}
                     loading="lazy"
                     style={{ '--h': `${Math.sqrt(4200 / c.aspect).toFixed(1)}px` }}
-                    className="h-[calc(var(--h)*0.78)] w-auto opacity-55 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100 md:h-[var(--h)]"
+                    className="h-[calc(var(--h)*0.78)] w-auto opacity-90 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100 md:h-[var(--h)]"
                   />
                 </li>
               ))}
@@ -85,7 +86,7 @@ export function Approach({ index = '03' }) {
 function Step({ step, i }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 70%', 'start 45%'] })
-  const color = useTransform(scrollYProgress, [0, 1], ['#5d6b81', '#5fd8f0'])
+  const color = useTransform(scrollYProgress, [0, 1], ['#7f8ea6', '#5fd8f0'])
   const width = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
   return (
     <li ref={ref} className="relative grid grid-cols-[3.5rem_1fr] gap-4 py-8 md:grid-cols-[5rem_1fr]">
@@ -473,7 +474,7 @@ export function Industries({ index = '04' }) {
                 <Label className="mt-8 !text-dim">Clients in this sector</Label>
                 <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
                   {ind.clients.map((c) => (
-                    <img key={c} src={`/clients/${c}.png`} alt={clientLogos.find((l) => l.file === c)?.name} className="h-7 w-auto opacity-70" />
+                    <img key={c} src={`/clients/${c}.png`} alt={clientLogos.find((l) => l.file === c)?.name} className="h-7 w-auto opacity-95" />
                   ))}
                 </div>
               </motion.div>
@@ -508,15 +509,15 @@ function SampleReport() {
         <div className="flex gap-1.5">
           {[0, 1, 2].map((d) => <span key={d} className="h-2.5 w-2.5 rounded-full bg-line-strong" />)}
         </div>
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">Sample report · illustrative</span>
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Sample report · illustrative</span>
       </div>
       <div className="grid gap-6 border-b border-line p-6 sm:grid-cols-[1fr_auto] sm:items-end">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">Security posture assessment</p>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Security posture assessment</p>
           <p className="mt-2 font-wide text-xl font-semibold text-fg">Example Fintech Pvt. Ltd.</p>
         </div>
         <div className="sm:text-right">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">Overall</p>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Overall</p>
           <p className="mt-1 font-wide text-4xl font-semibold tabular-nums text-fg">{overall}<span className="text-lg text-dim">/100</span></p>
         </div>
       </div>
@@ -545,6 +546,40 @@ function SampleReport() {
   )
 }
 
+/* Email capture for the full sample report. The request lands in the enquiry inbox and the team replies with the PDF. */
+function ReportRequest() {
+  const [status, setStatus] = useState('idle')
+  async function onSubmit(e) {
+    e.preventDefault()
+    const f = new FormData(e.currentTarget)
+    if (f.get('botcheck')) return
+    setStatus('sending')
+    setStatus(await sendEnquiry({
+      subject: 'Sample report request from the website',
+      fields: { email: f.get('email'), company: f.get('company') || '-', interest: 'Sample assessment report (PDF)' },
+    }))
+  }
+  if (status === 'sent' || status === 'mailto') {
+    return (
+      <p role="status" className="mt-4 flex items-center gap-3 rounded-lg border border-line bg-ink-2 px-5 py-4 text-sm text-fg">
+        <Check className="h-4 w-4 text-accent" /> Thanks. We’ll email the full sample report (PDF) to you shortly.
+      </p>
+    )
+  }
+  return (
+    <form onSubmit={onSubmit} className="mt-4 rounded-lg border border-line bg-ink-2 p-5">
+      <p className="text-sm text-fg">Get the full sample report as a PDF</p>
+      <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+        <input name="email" type="email" required placeholder="Work email" aria-label="Work email" className="min-w-0 flex-1 rounded-md border border-line-strong bg-transparent px-4 py-2.5 text-sm text-fg placeholder:text-dim focus:border-accent focus:outline-none" />
+        <input name="company" placeholder="Company" aria-label="Company" className="min-w-0 flex-1 rounded-md border border-line-strong bg-transparent px-4 py-2.5 text-sm text-fg placeholder:text-dim focus:border-accent focus:outline-none sm:max-w-[11rem]" />
+        <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
+        <Button type="submit" disabled={status === 'sending'} className="!py-2.5 disabled:opacity-60">{status === 'sending' ? 'Sending…' : 'Email it to me'}</Button>
+      </div>
+      {status === 'error' && <p role="alert" className="mt-3 text-sm text-[#ff8a7a]">Couldn’t send that. Please try again or email info@res-q-rity.com.</p>}
+    </form>
+  )
+}
+
 export function Assessment({ index = '06' }) {
   const covers = [
     'Posture review across identity, endpoints, cloud, email and vendors',
@@ -567,10 +602,19 @@ export function Assessment({ index = '06' }) {
               </li>
             ))}
           </ul>
-          <Button to="/contact" className="mt-10">Claim your free assessment</Button>
+          <dl className="mt-8 grid gap-x-6 gap-y-4 text-sm sm:grid-cols-2">
+            {[['How long', assessmentOffer.duration], ['What we need', assessmentOffer.needs], ['Who delivers it', assessmentOffer.deliveredBy], ['Who it’s for', assessmentOffer.fit]].map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-muted">{k}</dt>
+                <dd className="mt-1 leading-relaxed text-fg">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <Button {...bookingLink} className="mt-10">Book your free assessment</Button>
         </div>
         <FadeUp delay={0.1} className="md:col-span-7">
           <SampleReport />
+          <ReportRequest />
         </FadeUp>
       </div>
     </section>
@@ -607,5 +651,66 @@ export function Faq({ index = '10' }) {
         </div>
       </div>
     </section>
+  )
+}
+
+/* A case study in a fixed shape: problem, scope, duration, result, then a named quote.
+   Fields left empty in the data are skipped, so nothing unconfirmed is shown. */
+export function CaseStudy({ c }) {
+  const facts = [
+    ['The problem', c.problem],
+    ['Scope', c.scope],
+    ['Duration', c.duration],
+    ['Result', c.result],
+  ].filter(([, v]) => v && (!Array.isArray(v) || v.length))
+  const q = c.quote
+  return (
+    <article className="overflow-hidden rounded-lg border border-line bg-ink-2">
+      <div className="grid gap-8 border-b border-line p-7 md:grid-cols-12 md:items-center md:p-10">
+        <div className="md:col-span-8">
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted">{c.sector}</p>
+          <h3 className="mt-3 font-wide text-2xl font-semibold leading-snug text-fg md:text-3xl">{c.headline}</h3>
+        </div>
+        <div className="md:col-span-4 md:justify-self-end">
+          <img src={`/clients/${c.logo}.png`} alt={c.client} className="h-10 w-auto md:h-12" />
+        </div>
+      </div>
+      <dl className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {facts.map(([k, v]) => (
+          <div key={k} className="bg-ink p-7">
+            <dt className="font-mono text-xs uppercase tracking-[0.12em] text-accent">{k}</dt>
+            <dd className="mt-3 text-[15px] leading-relaxed text-fg/90">
+              {Array.isArray(v) ? (
+                <ul className="space-y-1.5">{v.map((x) => <li key={x} className="flex gap-2"><span className="text-muted">–</span>{x}</li>)}</ul>
+              ) : v}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {c.metrics?.length > 0 && (
+        <div className="grid gap-px border-t border-line bg-line sm:grid-cols-3">
+          {c.metrics.map((m) => (
+            <div key={m.label} className="bg-ink p-7">
+              <p className="font-wide text-4xl font-semibold text-fg">{m.value}</p>
+              <p className="mt-2 text-sm">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {q && (
+        <figure className="grid gap-6 border-t border-line p-7 md:grid-cols-12 md:p-10">
+          <blockquote className="font-wide text-lg leading-[1.5] text-fg md:col-span-9 md:text-xl">
+            <span className="text-accent">“</span>{q.text}<span className="text-accent">”</span>
+          </blockquote>
+          <figcaption className="flex items-center gap-4 md:col-span-3">
+            {q.photo && <img src={q.photo} alt="" className="h-12 w-12 rounded-full object-cover grayscale" loading="lazy" />}
+            <span>
+              <span className="block font-medium text-fg">{q.name}</span>
+              <span className="block text-sm">{[q.title, c.client].filter(Boolean).join(', ')}</span>
+            </span>
+          </figcaption>
+        </figure>
+      )}
+    </article>
   )
 }

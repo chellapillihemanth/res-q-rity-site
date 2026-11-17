@@ -1,4 +1,4 @@
-import { contact, address } from '../data/content'
+import { contact, address, bookingLink } from '../data/content'
 import { Button, FadeUp, Label, Reveal, Rule } from './ui'
 
 export default function CTA() {
@@ -15,7 +15,7 @@ export default function CTA() {
               className="mt-6 font-wide text-4xl font-semibold leading-[1.05] tracking-[-0.025em] text-fg sm:text-5xl lg:text-6xl"
             />
             <FadeUp delay={0.2} className="mt-10 flex flex-wrap gap-3">
-              <Button to="/contact">Book your assessment</Button>
+              <Button {...bookingLink}>Book your assessment</Button>
               <Button href={contact.phoneHref} variant="secondary">Call {contact.phone}</Button>
             </FadeUp>
           </div>
@@ -29,8 +29,9 @@ export default function CTA() {
               <p className="mt-2 leading-relaxed">{address.short}</p>
             </div>
             <div>
-              <Label className="!text-dim">Response time</Label>
-              <p className="mt-2">Within one business day</p>
+              <Label>Response</Label>
+              <p className="mt-2">Enquiries within one business day</p>
+              <p className="mt-1">Active incident? <a href={contact.phoneHref} className="link-underline text-fg">Call {contact.phone}</a></p>
             </div>
           </FadeUp>
         </div>
