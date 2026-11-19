@@ -101,7 +101,7 @@ function Hero() {
         </motion.ul>
 
         <h1 className="mt-8 max-w-6xl font-wide text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.035em] text-fg sm:text-6xl md:text-7xl lg:text-[4.9rem]">
-          {['Get ISO 27001 or SOC 2', 'audit-ready, without'].map((line, i) => (
+          {['Security that runs', 'your program,'].map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.06em]">
               <motion.span
                 className={`block ${i ? 'text-muted' : ''}`}
@@ -120,7 +120,7 @@ function Hero() {
               animate={{ y: '0%' }}
               transition={{ duration: 1.1, delay: 0.49, ease }}
             >
-              hiring a CISO.
+              not just your audit.
               {/* Hand-drawn stroke under the key word, drawn once the line has landed. */}
               <svg aria-hidden viewBox="0 0 400 20" preserveAspectRatio="none" className="absolute -bottom-[0.12em] left-[2%] h-[0.22em] w-[94%] overflow-visible">
                 <motion.path
@@ -142,10 +142,10 @@ function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.75, ease }}
-          className="mt-8 max-w-xl text-base leading-relaxed md:text-lg"
+          className="mt-8 max-w-[40rem] text-base leading-relaxed md:text-lg"
         >
-          For growing companies in fintech, SaaS, healthcare and manufacturing. We run your security program, get you
-          through the audit and source the right tools, so you can scale without carrying the risk.
+          vCISO, compliance, 24x7 SOC and forensics from one accountable partner. For growing fintech, SaaS,
+          healthcare and manufacturing teams.
         </motion.p>
 
         <motion.div
