@@ -15,8 +15,8 @@ const differentiators = [
 
 const timeline = [
   ['2022', 'RES-Q-RITY founded on the mantra of “Simplifying Cyber”.'],
-  ['NSRCEL', 'Incubated at IIM Bangalore’s startup incubator.'],
   ['2024', 'Became a member of the Data Security Council of India (DSCI).'],
+  ['NSRCEL', 'Incubated at IIM Bangalore’s startup incubator.'],
   ['Today', 'Serving clients in India and abroad from T-Hub, Hyderabad.'],
 ]
 
