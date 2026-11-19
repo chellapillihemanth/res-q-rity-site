@@ -57,7 +57,7 @@ export default function Footer() {
 
         <div className="md:col-span-2">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Office</p>
-          <address className="mt-5 text-sm not-italic leading-relaxed">{address.short}</address>
+          <address className="mt-5 text-sm not-italic leading-relaxed">{address.full}</address>
           <a href={contact.phoneHref} className="link-underline mt-4 inline-block text-sm text-fg">{contact.phone}</a>
         </div>
       </div>

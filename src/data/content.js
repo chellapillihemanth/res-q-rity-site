@@ -204,7 +204,7 @@ export const allPartners = partnerCategories.flatMap((c) => c.partners.map((p) =
 
 export const address = {
   short: 'T-Hub, Knowledge City',
-  full: 'T-Hub, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City, Serilingampally, Hyderabad, Telangana 500081',
+  full: '2nd Floor, T-Hub, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City, Serilingampally, Hyderabad, Telangana 500081',
   directions: 'https://www.google.com/maps/search/?api=1&query=T-Hub%2C%20Knowledge%20City%2C%20Hyderabad',
 }
 
