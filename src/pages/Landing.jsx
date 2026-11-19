@@ -41,7 +41,7 @@ export default function Landing({ slug }) {
       <PageHero label={page.label} title={page.title} muted={page.muted} text={page.intro}>
         <div className="mt-10 flex flex-wrap gap-3 md:ml-[50%]">
           <Button {...bookingLink}>Book a free assessment</Button>
-          <Button to="/case-studies" variant="secondary">See a case study</Button>
+          {/* <Button to="/case-studies" variant="secondary">See a case study</Button> */}
         </div>
       </PageHero>
 

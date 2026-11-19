@@ -9,7 +9,8 @@ import Services from './pages/Services'
 import Solutions from './pages/Solutions'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
-import CaseStudies from './pages/CaseStudies'
+// Case studies page hidden for now; restore this import, the title entry and the route below to bring it back.
+// import CaseStudies from './pages/CaseStudies'
 import IndustriesPage from './pages/Industries'
 import Landing from './pages/Landing'
 import { landingPages } from './data/landing'
@@ -21,7 +22,7 @@ const pages = {
   '/services': ['Services: vCISO, ISO 27001, SOC 2 & PCI DSS | RES-Q-RITY', 'Virtual CISO, risk and gap assessments, incident response, and audit readiness for ISO 27001, SOC 2, PCI DSS, HIPAA and more.'],
   '/solutions': ['Security Problems We Solve | RES-Q-RITY', 'Ransomware, phishing, data leaks, OT blind spots, audit fatigue: the problems we solve, how we solve them, and the tools we deploy.'],
   '/industries': ['Industries: Fintech, Healthcare, Manufacturing & SaaS | RES-Q-RITY', 'Cybersecurity and compliance mapped to SEBI, RBI, IRDAI, HIPAA, DPDPA, ISO 27001 and SOC 2 for your sector.'],
-  '/case-studies': ['Case Studies | RES-Q-RITY', 'How RES-Q-RITY clients closed control gaps and passed their audits: problem, scope, duration and result.'],
+  // '/case-studies': ['Case Studies | RES-Q-RITY', 'How RES-Q-RITY clients closed control gaps and passed their audits: problem, scope, duration and result.'],
   '/contact': ['Contact & Free Assessment | RES-Q-RITY', 'Book a free security assessment, or call us about an active incident. T-Hub, Knowledge City, Hyderabad.'],
   ...Object.fromEntries(landingPages.map((p) => ['/' + p.slug, [p.metaTitle, p.metaDescription]])),
 }
@@ -76,7 +77,7 @@ export default function App() {
           <Route path="/services" element={<Page><Services /></Page>} />
           <Route path="/solutions" element={<Page><Solutions /></Page>} />
           <Route path="/industries" element={<Page><IndustriesPage /></Page>} />
-          <Route path="/case-studies" element={<Page><CaseStudies /></Page>} />
+          {/* <Route path="/case-studies" element={<Page><CaseStudies /></Page>} /> */}
           <Route path="/contact" element={<Page><Contact /></Page>} />
           {landingPages.map((p) => (
             <Route key={p.slug} path={'/' + p.slug} element={<Page><Landing slug={p.slug} /></Page>} />

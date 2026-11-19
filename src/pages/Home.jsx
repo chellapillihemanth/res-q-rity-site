@@ -276,7 +276,7 @@ function SelectedWork() {
       <div className="wrap">
         <SectionHeader index="05" label="Case study" title="What an engagement" muted="actually looks like." />
         <FadeUp className="mt-14"><CaseStudy c={caseStudies[0]} /></FadeUp>
-        <FadeUp className="mt-8"><ArrowLink to="/case-studies">All case studies and client work</ArrowLink></FadeUp>
+        {/* <FadeUp className="mt-8"><ArrowLink to="/case-studies">All case studies and client work</ArrowLink></FadeUp> */}
       </div>
     </section>
   )

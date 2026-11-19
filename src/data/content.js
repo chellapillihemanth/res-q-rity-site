@@ -36,7 +36,7 @@ export const navLinks = [
   { label: 'Services', to: '/services' },
   { label: 'Solutions', to: '/solutions' },
   { label: 'Industries', to: '/industries' },
-  { label: 'Case studies', to: '/case-studies' },
+  // { label: 'Case studies', to: '/case-studies' }, // hidden for now
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
