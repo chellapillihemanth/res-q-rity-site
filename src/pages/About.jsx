@@ -17,7 +17,7 @@ const timeline = [
   ['2022', 'RES-Q-RITY founded on the mantra of “Simplifying Cyber”.'],
   ['2024', 'Became a member of the Data Security Council of India (DSCI).'],
   ['NSRCEL', 'Incubated at IIM Bangalore’s startup incubator.'],
-  ['Today', 'Serving clients in India and abroad from T-Hub, Hyderabad.'],
+  ['Today', 'Serving clients locally and internationally from T-Hub.'],
 ]
 
 /* Words brighten one by one as the statement scrolls past. */
@@ -55,8 +55,8 @@ export default function About() {
       <div className="wrap pt-16 md:pt-20">
         <Photo
           src="/images/hyderabad-hitec-city.jpg"
-          alt="Office towers in Hyderabad's Knowledge City, near T-Hub"
-          caption="Knowledge City, Hyderabad · Home of T-Hub"
+          alt="Office towers in Knowledge City, near T-Hub"
+          caption="Knowledge City · Home of T-Hub"
           className="aspect-[4/3] sm:aspect-[21/9]"
         />
       </div>

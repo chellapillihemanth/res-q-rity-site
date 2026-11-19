@@ -94,7 +94,7 @@ export default function Careers({ index }) {
           label="Careers"
           title="Work with us."
           muted="Help us keep cyber simple."
-          text="We are a small, fast-growing team at T-Hub, Hyderabad, working with enterprise clients and leading security vendors. If you want ownership and real impact, we would like to hear from you."
+          text="We are a small, fast-growing team based at T-Hub, working with enterprise clients and leading security vendors. If you want ownership and real impact, we would like to hear from you."
         />
         <div className="mt-14 space-y-4">
           <Label>{n} open {n === 1 ? 'position' : 'positions'}</Label>

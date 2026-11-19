@@ -8,7 +8,7 @@ import { ArrowLink, Button, FadeUp, Label, Photo, Rule, SectionHeader, ease } fr
 import { Approach, Assessment, CaseStudy, Faq, FrameworksBand, ImageBand, Industries, LogoWall, Process, Testimonials } from '../components/sections'
 import { bookingLink, caseStudies, solutionProblems, whatsappHref } from '../data/content'
 
-const credentials = ['DSCI member', 'Incubated at IIM Bangalore · NSRCEL', 'T-Hub, Hyderabad']
+const credentials = ['DSCI member', 'Incubated at IIM Bangalore · NSRCEL', 'Based at T-Hub']
 
 // Entry points at the foot of the hero: each routes a visitor straight to what they came for.
 const entryPoints = [

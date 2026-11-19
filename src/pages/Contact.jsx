@@ -182,7 +182,7 @@ export default function Contact() {
       <section className="relative flex min-h-[60vh] items-end overflow-hidden border-t border-line bg-ink-2">
         <img
           src="/images/hyderabad-hitec-city.jpg"
-          alt="Office towers in Hyderabad's Knowledge City, near T-Hub"
+          alt="Office towers in Knowledge City, near T-Hub"
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.55)_brightness(0.7)]"
         />
@@ -192,7 +192,7 @@ export default function Contact() {
           <div className="md:col-span-8">
             <Label><span className="text-accent">●</span>&nbsp;&nbsp;Visit us</Label>
             <p className="mt-5 font-wide text-3xl font-semibold leading-tight tracking-[-0.02em] text-fg md:text-5xl">
-              T-Hub, Knowledge City <span className="text-fg/60">Hyderabad</span>
+              T-Hub, <span className="text-fg/60">Knowledge City</span>
             </p>
           </div>
           <div className="md:col-span-4 md:justify-self-end">

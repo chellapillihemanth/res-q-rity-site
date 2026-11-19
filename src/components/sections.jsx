@@ -197,7 +197,7 @@ export function Recognition({ index = '07' }) {
   return (
     <section className="py-24 md:py-28">
       <div className="wrap">
-        <SectionHeader index={index} label="Recognition" title="Built in India's leading" muted="startup and security ecosystems." />
+        <SectionHeader index={index} label="Recognition" title="Built inside leading" muted="startup and security ecosystems." />
         <div className="mt-14 grid gap-px overflow-hidden border-y border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {recognition.map((r, i) => (
             <FadeUp key={r.title} delay={i * 0.08} className="bg-ink py-8 pr-6 sm:px-6 sm:first:pl-0">

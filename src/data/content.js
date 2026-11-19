@@ -203,7 +203,7 @@ export const partnerCategories = [
 export const allPartners = partnerCategories.flatMap((c) => c.partners.map((p) => p.name))
 
 export const address = {
-  short: 'T-Hub, Knowledge City, Hyderabad',
+  short: 'T-Hub, Knowledge City',
   full: 'T-Hub, Plot No 1/C, Sy No 83/1, Raidurgam, Knowledge City, Serilingampally, Hyderabad, Telangana 500081',
   directions: 'https://www.google.com/maps/search/?api=1&query=T-Hub%2C%20Knowledge%20City%2C%20Hyderabad',
 }
@@ -315,7 +315,7 @@ export const recognition = [
   { title: 'Honoured by herDigital Story & Cigniti', text: 'Recognised as a notable female-led entrepreneurial venture.' },
   { title: 'Shecurity Global Summit', text: 'Guest speaker at the international summit on women in cybersecurity.' },
   { title: 'DSCI Member', text: 'Member of the Data Security Council of India since 2024.' },
-  { title: 'IIM Bangalore NSRCEL', text: 'Incubated at one of India’s leading startup incubators.' },
+  { title: 'IIM Bangalore NSRCEL', text: 'Incubated at a leading startup incubator.' },
 ]
 
 export const frameworks = ['ISO 27001', 'SOC 2', 'PCI DSS', 'HIPAA', 'NIST', 'HITRUST', 'SOX', 'Cyber Essentials', 'ISO 42001', 'ISO 9001', '21 CFR Part 11', 'DPDPA', 'SEBI', 'RBI', 'IRDAI']
@@ -329,7 +329,7 @@ export const industries = [
   },
   {
     name: 'Healthcare & insurance',
-    text: 'Patient and policyholder data carries the highest stakes. We assess controls against HIPAA and Indian data protection law, and harden the systems that hold that data.',
+    text: 'Patient and policyholder data carries the highest stakes. We assess controls against HIPAA and DPDPA, and harden the systems that hold that data.',
     frameworks: ['HIPAA', 'HITRUST', 'IRDAI', 'DPDPA', '21 CFR Part 11'],
     clients: ['nipro', 'freedom-health', 'anion'],
   },
@@ -358,7 +358,7 @@ export const faqs = [
   },
   {
     q: 'Which compliance frameworks can you help with?',
-    a: 'ISO 27001/27002, SOC 1 and SOC 2, PCI DSS, HIPAA, HITRUST, NIST, SOX, Cyber Essentials, ISO 9001, ISO 42001 and 21 CFR Part 11, as well as Indian regulations including DPDPA, SEBI, RBI and IRDAI.',
+    a: 'ISO 27001/27002, SOC 1 and SOC 2, PCI DSS, HIPAA, HITRUST, NIST, SOX, Cyber Essentials, ISO 9001, ISO 42001 and 21 CFR Part 11, as well as regulations including DPDPA, SEBI, RBI and IRDAI.',
   },
   {
     q: 'How is a virtual CISO different from hiring one?',
@@ -369,8 +369,8 @@ export const faqs = [
     a: 'Yes. Most engagements work as an extension of your InfoSec and compliance teams. We train internal control owners so the program keeps running after we step back.',
   },
   {
-    q: 'Where are you based, and do you work with clients outside India?',
-    a: 'Our office is at T-Hub, Knowledge City, Hyderabad. We work with clients across India and internationally, including Synergy Software Solutions in Malaysia.',
+    q: 'Where are you based, and do you work with international clients?',
+    a: 'Our office is at T-Hub, Knowledge City. We work with clients locally and internationally, including Synergy Software Solutions in Malaysia.',
   },
 ]
 

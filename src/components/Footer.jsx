@@ -14,7 +14,8 @@ const serviceLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-ink-2">
+    <footer className="relative border-t border-line bg-gradient-to-b from-ink-2 to-[#0c2147]">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue to-transparent" />
       <div className="wrap grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-4">
           <img src="/logo.png" alt="RES-Q-RITY" className="h-[clamp(2.75rem,3.8vw,3.75rem)] w-auto" />
@@ -56,7 +57,7 @@ export default function Footer() {
 
         <div className="md:col-span-2">
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Office</p>
-          <address className="mt-5 text-sm not-italic leading-relaxed">{address.full}</address>
+          <address className="mt-5 text-sm not-italic leading-relaxed">{address.short}</address>
           <a href={contact.phoneHref} className="link-underline mt-4 inline-block text-sm text-fg">{contact.phone}</a>
         </div>
       </div>
