@@ -25,10 +25,10 @@ export const whatsappHref = contact.whatsapp
   : ''
 
 // Contact form delivery. Submissions are sent by Web3Forms to the inbox the access key was created for
-// (tpagidipati@res-q-rity.com). The key is public by design; set it as VITE_WEB3FORMS_KEY.
+// (tpagidipati@res-q-rity.com). The key is public by design; set it as WEB3FORMS_KEY (VITE_WEB3FORMS_KEY also works).
 export const enquiryForm = {
   recipient: 'tpagidipati@res-q-rity.com',
-  web3formsKey: import.meta.env.VITE_WEB3FORMS_KEY || '',
+  web3formsKey: import.meta.env.WEB3FORMS_KEY || import.meta.env.VITE_WEB3FORMS_KEY || '',
 }
 
 export const navLinks = [

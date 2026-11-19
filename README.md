@@ -13,7 +13,7 @@ npm run build    # production build in dist/
 - Shared animation building blocks: `src/components/ui.jsx` and `src/components/sections.jsx`.
 - The contact form sends enquiries to **tpagidipati@res-q-rity.com** through [Web3Forms](https://web3forms.com):
   1. On web3forms.com, create an access key using `tpagidipati@res-q-rity.com` (the key is emailed to that inbox).
-  2. In Vercel: Project → Settings → Environment Variables, add `VITE_WEB3FORMS_KEY` with that key, then redeploy.
+  2. In Vercel: Project → Settings → Environment Variables, add `WEB3FORMS_KEY` with that key, then redeploy.
   3. For local testing, copy `.env.example` to `.env.local` and paste the key.
 
   Until a key is set, the form falls back to opening the visitor's mail app addressed to the same inbox.
