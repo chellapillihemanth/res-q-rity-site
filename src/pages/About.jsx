@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import PageHero from '../components/PageHero'
 import CTA from '../components/CTA'
+import Careers from '../components/Careers'
 import { FadeUp, Label, Photo, SectionHeader } from '../components/ui'
 import { Leadership, LogoWall, Recognition, Testimonials, VcisoTable } from '../components/sections'
 
@@ -102,6 +103,7 @@ export default function About() {
       <Testimonials index="05" />
       <LogoWall title="Our clients" />
       <VcisoTable index="06" />
+      <Careers index="07" />
       <CTA />
     </>
   )

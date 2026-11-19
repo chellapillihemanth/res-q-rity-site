@@ -4,7 +4,7 @@ import { CheckCircle2, ChevronDown, Siren } from 'lucide-react'
 import PageHero from '../components/PageHero'
 import SocialLinks from '../components/SocialIcons'
 import { Button, FadeUp, Label } from '../components/ui'
-import { address, assessmentOffer, contact, enquiryForm, whatsappHref } from '../data/content'
+import { address, contact, enquiryForm, whatsappHref } from '../data/content'
 import { formOptions } from '../data/landing'
 import { sendEnquiry } from '../lib/enquiry'
 
@@ -52,29 +52,6 @@ function IncidentPanel() {
   )
 }
 
-function AssessmentDetails() {
-  const rows = [
-    ['How long', assessmentOffer.duration],
-    ['What we need', assessmentOffer.needs],
-    ['Who delivers it', assessmentOffer.deliveredBy],
-    ['What you get', assessmentOffer.output],
-    ['Who it’s for', assessmentOffer.fit],
-  ]
-  return (
-    <div className="rounded-lg border border-line bg-ink-2 p-6">
-      <Label className="!text-accent">The free assessment</Label>
-      <dl className="mt-4 space-y-4 text-sm">
-        {rows.map(([k, v]) => (
-          <div key={k}>
-            <dt className="text-muted">{k}</dt>
-            <dd className="mt-0.5 leading-relaxed text-fg">{v}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  )
-}
-
 export default function Contact() {
   const [interest, setInterest] = useState(interests[0])
   // idle → sending → sent | error. "mailto" means the visitor's mail app was opened instead.
@@ -118,7 +95,6 @@ export default function Contact() {
         <div className="wrap grid gap-14 md:grid-cols-12">
           <div className="space-y-8 md:col-span-4">
             <IncidentPanel />
-            <AssessmentDetails />
             <div className="space-y-6">
               {[
                 ['Email', <a key="e" href={`mailto:${contact.email}`} className="link-underline text-fg">{contact.email}</a>],

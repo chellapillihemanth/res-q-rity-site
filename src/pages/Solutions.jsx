@@ -35,9 +35,6 @@ function ProblemBlock({ p, i }) {
         </FadeUp>
       </div>
 
-      <p className="mt-4 text-sm text-muted">
-        Delivered with <span className="text-fg/90">{p.tools.join(', ')}</span>, chosen to fit your environment.
-      </p>
     </section>
   )
 }

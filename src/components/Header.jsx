@@ -34,7 +34,7 @@ export default function Header() {
       >
         <div className="wrap flex h-[72px] items-center justify-between">
           <Link to="/" aria-label="RES-Q-RITY home" className="shrink-0">
-            <img src="/logo.png" alt="RES-Q-RITY, A New Dimension of Security" className="h-8 w-auto md:h-9" />
+            <img src="/logo.png" alt="RES-Q-RITY, A New Dimension of Security" className="h-[clamp(2.5rem,3.4vw,3.25rem)] w-auto" />
           </Link>
 
           <nav className="hidden items-center gap-7 xl:gap-9 lg:flex">
@@ -106,7 +106,7 @@ export default function Header() {
                   <div>
                     <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Free</p>
                     <p className="mt-3 font-wide text-lg font-medium leading-snug text-fg">Initial technical assessment</p>
-                    <p className="mt-2 text-sm">About five working days. A 30-minute call and a questionnaire, no system access.</p>
+                    <p className="mt-2 text-sm">Find your biggest risks in one short engagement.</p>
                   </div>
                   <span className="mt-6 text-sm text-fg">Book now <span className="inline-block transition-transform group-hover:translate-x-1">→</span></span>
                 </Link>

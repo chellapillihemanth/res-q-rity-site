@@ -4,10 +4,9 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react'
 import { Check, Minus, ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 import {
   clientLogos, approach, engagementSteps, testimonials, recognition, roadmap,
-  frameworks, industries, assessmentDomains, faqs, leadership, founderMessage, assessmentOffer, bookingLink,
+  frameworks, industries, faqs, leadership, founderMessage, bookingLink,
 } from '../data/content'
-import { sendEnquiry } from '../lib/enquiry'
-import { ArrowLink, Button, FadeUp, Label, Reveal, Rule, SectionHeader, ease } from './ui'
+import { ArrowLink, Button, FadeUp, Label, Photo, Reveal, Rule, SectionHeader, ease } from './ui'
 
 export function LogoWall({ title = 'Trusted by teams in fintech, healthcare, manufacturing and SaaS' }) {
   // Two copies back to back so the -50% marquee loop is seamless.
@@ -486,100 +485,6 @@ export function Industries({ index = '04' }) {
   )
 }
 
-const statusTone = {
-  'High risk': 'text-[#ff8a7a]',
-  'Needs attention': 'text-[#f2c66d]',
-  Adequate: 'text-muted',
-  Strong: 'text-accent',
-}
-
-function barTone(score) {
-  if (score >= 75) return 'bg-accent'
-  if (score >= 50) return 'bg-muted'
-  if (score >= 35) return 'bg-[#f2c66d]'
-  return 'bg-[#ff8a7a]'
-}
-
-/* An illustrative report so visitors can see what the free assessment produces. */
-function SampleReport() {
-  const overall = Math.round(assessmentDomains.reduce((s, d) => s + d.score, 0) / assessmentDomains.length)
-  return (
-    <div className="overflow-hidden rounded-lg border border-line-strong bg-ink-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]">
-      <div className="flex items-center justify-between border-b border-line px-5 py-3">
-        <div className="flex gap-1.5">
-          {[0, 1, 2].map((d) => <span key={d} className="h-2.5 w-2.5 rounded-full bg-line-strong" />)}
-        </div>
-        <span className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Sample report · illustrative</span>
-      </div>
-      <div className="grid gap-6 border-b border-line p-6 sm:grid-cols-[1fr_auto] sm:items-end">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Security posture assessment</p>
-          <p className="mt-2 font-wide text-xl font-semibold text-fg">Example Fintech Pvt. Ltd.</p>
-        </div>
-        <div className="sm:text-right">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-dim">Overall</p>
-          <p className="mt-1 font-wide text-4xl font-semibold tabular-nums text-fg">{overall}<span className="text-lg text-dim">/100</span></p>
-        </div>
-      </div>
-      <ul className="divide-y divide-line">
-        {assessmentDomains.map((d, i) => (
-          <li key={d.name} className="grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 px-6 py-3.5 sm:grid-cols-[13rem_1fr_7.5rem]">
-            <span className="text-sm text-fg">{d.name}</span>
-            <span className={`text-right text-xs sm:order-3 ${statusTone[d.status]}`}>{d.status}</span>
-            <span className="col-span-2 h-1 overflow-hidden rounded-full bg-line sm:col-span-1">
-              <motion.span
-                className={`block h-full rounded-full ${barTone(d.score)}`}
-                initial={{ width: 0 }}
-                whileInView={{ width: `${d.score}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, delay: 0.2 + i * 0.08, ease }}
-              />
-            </span>
-          </li>
-        ))}
-      </ul>
-      <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-4 text-xs">
-        <span className="text-dim">Prioritised recommendations</span>
-        <span className="text-accent">Remediation roadmap included</span>
-      </div>
-    </div>
-  )
-}
-
-/* Email capture for the full sample report. The request lands in the enquiry inbox and the team replies with the PDF. */
-function ReportRequest() {
-  const [status, setStatus] = useState('idle')
-  async function onSubmit(e) {
-    e.preventDefault()
-    const f = new FormData(e.currentTarget)
-    if (f.get('botcheck')) return
-    setStatus('sending')
-    setStatus(await sendEnquiry({
-      subject: 'Sample report request from the website',
-      fields: { email: f.get('email'), company: f.get('company') || '-', interest: 'Sample assessment report (PDF)' },
-    }))
-  }
-  if (status === 'sent' || status === 'mailto') {
-    return (
-      <p role="status" className="mt-4 flex items-center gap-3 rounded-lg border border-line bg-ink-2 px-5 py-4 text-sm text-fg">
-        <Check className="h-4 w-4 text-accent" /> Thanks. We’ll email the full sample report (PDF) to you shortly.
-      </p>
-    )
-  }
-  return (
-    <form onSubmit={onSubmit} className="mt-4 rounded-lg border border-line bg-ink-2 p-5">
-      <p className="text-sm text-fg">Get the full sample report as a PDF</p>
-      <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-        <input name="email" type="email" required placeholder="Work email" aria-label="Work email" className="min-w-0 flex-1 rounded-md border border-line-strong bg-transparent px-4 py-2.5 text-sm text-fg placeholder:text-dim focus:border-accent focus:outline-none" />
-        <input name="company" placeholder="Company" aria-label="Company" className="min-w-0 flex-1 rounded-md border border-line-strong bg-transparent px-4 py-2.5 text-sm text-fg placeholder:text-dim focus:border-accent focus:outline-none sm:max-w-[11rem]" />
-        <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
-        <Button type="submit" disabled={status === 'sending'} className="!py-2.5 disabled:opacity-60">{status === 'sending' ? 'Sending…' : 'Email it to me'}</Button>
-      </div>
-      {status === 'error' && <p role="alert" className="mt-3 text-sm text-[#ff8a7a]">Couldn’t send that. Please try again or email info@res-q-rity.com.</p>}
-    </form>
-  )
-}
-
 export function Assessment({ index = '06' }) {
   const covers = [
     'Posture review across identity, endpoints, cloud, email and vendors',
@@ -602,19 +507,15 @@ export function Assessment({ index = '06' }) {
               </li>
             ))}
           </ul>
-          <dl className="mt-8 grid gap-x-6 gap-y-4 text-sm sm:grid-cols-2">
-            {[['How long', assessmentOffer.duration], ['What we need', assessmentOffer.needs], ['Who delivers it', assessmentOffer.deliveredBy], ['Who it’s for', assessmentOffer.fit]].map(([k, v]) => (
-              <div key={k}>
-                <dt className="text-muted">{k}</dt>
-                <dd className="mt-1 leading-relaxed text-fg">{v}</dd>
-              </div>
-            ))}
-          </dl>
           <Button {...bookingLink} className="mt-10">Book your free assessment</Button>
         </div>
         <FadeUp delay={0.1} className="md:col-span-7">
-          <SampleReport />
-          <ReportRequest />
+          <Photo
+            src="/images/advisory-session.jpg"
+            alt="A consultant walking a client through assessment findings"
+            caption="Assessment read-out with your team"
+            className="aspect-[4/3]"
+          />
         </FadeUp>
       </div>
     </section>

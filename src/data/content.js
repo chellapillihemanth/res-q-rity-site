@@ -298,8 +298,16 @@ export const testimonials = [
     name: 'Preyas Mistry', org: 'Quartic.ai', photo: '/people/preyas-mistry.jpg',
   },
   {
-    quote: 'Cigniti is really happy to have worked with Res-Q-Rity on our project to help women learn about new tech. Together, we helped lots of women get into tech fields. They made a big difference.',
-    name: 'Tanya Singh', org: 'Cigniti', photo: '/people/tanya-singh.jpg',
+    quote: 'RES-Q-RITY is a team I’d recommend for OT security. They bring strong technical knowledge, are flexible to work with, and deliver solid implementation.',
+    name: 'Tanmay Agarwal', org: 'IIT Kanpur C3iHub', photo: '/people/tanmay-agarwal.jpg',
+  },
+  {
+    quote: 'RES-Q-RITY took the time to understand how we work and found us the right fit of technology. It has helped us optimise our day-to-day work. I’d recommend them to any company looking for a security partner who matches the solution to the need.',
+    name: 'Raghav', org: 'Bluecopa', photo: '/people/raghav-bluecopa.png',
+  },
+  {
+    quote: 'RES-Q-RITY helped us build our security systems and processes and made us audit ready. I’d recommend them.',
+    name: 'Venkat Maroju', org: 'SourceTrace', photo: '/people/venkat-maroju.png',
   },
 ]
 
@@ -339,20 +347,10 @@ export const industries = [
   },
 ]
 
-export const assessmentDomains = [
-  { name: 'Identity & access', score: 46, status: 'Needs attention' },
-  { name: 'Endpoint protection', score: 72, status: 'Adequate' },
-  { name: 'Cloud configuration', score: 38, status: 'Needs attention' },
-  { name: 'Email & phishing resilience', score: 64, status: 'Adequate' },
-  { name: 'Third-party risk', score: 29, status: 'High risk' },
-  { name: 'Incident readiness', score: 55, status: 'Adequate' },
-  { name: 'Compliance (ISO 27001)', score: 81, status: 'Strong' },
-]
-
 export const faqs = [
   {
     q: 'What does the free technical assessment include?',
-    a: 'A no-cost review of your security posture across identity, endpoints, cloud, email, third parties and compliance. It takes about five working days and needs only a 30-minute kickoff call and a short questionnaire, with no system access. Our senior consultants deliver it, and you get a scored report and prioritised roadmap, with no obligation to continue. It suits companies with 25 or more employees, or any team facing an audit or customer security review.',
+    a: 'A no-cost review of your current security posture across identity, endpoints, cloud, email, third parties and compliance. You get objective findings and practical recommendations, with no obligation to continue.',
   },
   {
     q: 'Do you only consult, or can you also provide security products?',
@@ -494,12 +492,3 @@ export const solutionProblems = [
   },
 ]
 
-/* Free assessment: what it is, how long, what we need, who delivers.
-   TODO (client): confirm these details before launch. They are written as a sensible default. */
-export const assessmentOffer = {
-  duration: 'About 5 working days from kickoff to read-out',
-  needs: 'A 30-minute kickoff call and a short questionnaire. No system access or agents required.',
-  deliveredBy: 'Senior consultants, led by our founder Tejasree Pagidipati, a former CISO',
-  output: 'A scored posture report and a prioritised remediation roadmap, walked through on a call',
-  fit: 'For companies with 25+ employees, or any team facing an audit or customer security review',
-}

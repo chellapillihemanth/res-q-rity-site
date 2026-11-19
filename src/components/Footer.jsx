@@ -9,6 +9,7 @@ const serviceLinks = [
   { label: 'On-demand experts', to: '/services#ondemand' },
   { label: 'ISO 27001', to: '/services#iso' },
   { label: 'Problems we solve', to: '/solutions' },
+  { label: 'Careers', to: '/about#careers' },
 ]
 
 export default function Footer() {
@@ -16,7 +17,7 @@ export default function Footer() {
     <footer className="border-t border-line bg-ink-2">
       <div className="wrap grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-4">
-          <img src="/logo.png" alt="RES-Q-RITY" className="h-9 w-auto" />
+          <img src="/logo.png" alt="RES-Q-RITY" className="h-[clamp(2.75rem,3.8vw,3.75rem)] w-auto" />
           <p className="mt-6 max-w-sm text-sm leading-relaxed">
             Cybersecurity consulting, audits and managed security for growing businesses. Founded in 2022 on the
             idea of simplifying cyber.
